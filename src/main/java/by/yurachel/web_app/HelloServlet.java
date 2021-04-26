@@ -1,4 +1,4 @@
-package by.yurachel.Web_app;
+package by.yurachel.web_app;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
