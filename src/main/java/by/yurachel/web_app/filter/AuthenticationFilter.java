@@ -22,7 +22,6 @@ public class AuthenticationFilter extends HttpFilter {
         }
         String userName = (String) session.getAttribute("username");
         if (userName == null || !userName.equalsIgnoreCase(getServletContext().getInitParameter("username"))) {
-//            res.sendError(401);
             req.getRequestDispatcher("WEB-INF/login.jsp").forward(req,res);
             return;
         }

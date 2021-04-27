@@ -15,14 +15,11 @@ public class RemoveServlet extends HttpServlet {
     private final PhoneRepository pr = PhoneRepository.getInstance();
     private final Phone phone = new Phone();
 
-
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         phone.setName(req.getParameter("name"));
         phone.setPrice(Double.parseDouble(req.getParameter("price")));
         phone.setProcessor(req.getParameter("processor"));
-        System.out.println(phone);
         pr.removePhone(phone);
         resp.sendRedirect("catalog");
     }

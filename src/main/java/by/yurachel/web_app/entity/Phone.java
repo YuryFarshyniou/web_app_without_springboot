@@ -8,6 +8,8 @@ public class Phone implements Serializable {
     private double price;
     private String processor;
 
+    private static final long serialVersionUID = 6295618226040646585L;
+
     public String getName() {
         return name;
     }

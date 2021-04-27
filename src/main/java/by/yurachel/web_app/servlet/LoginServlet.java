@@ -18,13 +18,11 @@ public class LoginServlet extends HttpServlet {
     public void init() {
         userName = getServletContext().getInitParameter("username");
         password = getServletContext().getInitParameter("password");
-
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("WEB-INF/login.jsp").forward(req, resp);
-
     }
 
     @Override
