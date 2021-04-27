@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = "/addPhone")
-public class newPhoneServlet extends HttpServlet {
+public class AddPhoneServlet extends HttpServlet {
     private PhoneRepository pr = PhoneRepository.getInstance();
 
     @Override

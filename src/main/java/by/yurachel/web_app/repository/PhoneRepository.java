@@ -46,7 +46,8 @@ public class PhoneRepository {
         }
     }
 
-    public void removePhone(String phoneName) {
-        phones.removeIf(x -> x.getName().equalsIgnoreCase(phoneName));
+    public void removePhone(Phone phone) {
+        getPhones().remove(phone);
+
     }
 }

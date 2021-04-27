@@ -18,7 +18,7 @@
         <div class="col-8">
             <form action="change" method="post">
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Phone name to change</label>
+                    <label for="exampleInputEmail" class="form-label">Phone name to change</label>
                     <input name="oldName" type="text" class="form-control" id="exampleInputEmail"
                            aria-describedby="emailHelp" placeholder="Phone name to change">
                 </div>

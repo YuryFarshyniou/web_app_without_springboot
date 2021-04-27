@@ -19,7 +19,9 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="home">MobileStore</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -34,12 +36,12 @@
                         <a class="nav-link" href="catalog">catalog</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
                             Action
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="change">Edit Phone</a></li>
-                            <li><a class="dropdown-item" href="remove">Remove phone</a></li>
                             <li><a class="dropdown-item" href="addPhone">Add new phone</a></li>
                         </ul>
                     </li>
@@ -58,6 +60,7 @@
                     <th>Name</th>
                     <th>Price</th>
                     <th>Processor</th>
+                    <th>Remove</th>
                 </tr>
 
                 </thead>
@@ -68,16 +71,28 @@
                         <td>${phone.name}</td>
                         <td>${phone.price}</td>
                         <td>${phone.processor}</td>
+                        <td>
+                            <form action="remove" method="post">
+                                <input type="hidden" value="${phone.name}" name="name">
+                                <input type="hidden" value="${phone.price}" name="price">
+                                <input type="hidden" value="${phone.processor}" name="processor">
+                                <input type="submit" name="remove" value="Remove"/>
+                            </form>
+                        </td>
+
+
                     </tr>
                 </c:forEach>
+
                 </tbody>
             </table>
-
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
             crossorigin="anonymous"></script>
+
 </div>
 </body>
 </html>

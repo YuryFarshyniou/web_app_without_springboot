@@ -23,7 +23,7 @@ public class ChangeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Phone newPhone = new Phone(req.getParameter("name"), Double.parseDouble(req.getParameter("price")), req.getParameter("processor"));
         String oldPhoneName = req.getParameter("oldName");
-        pr.changePhoneParam(newPhone,oldPhoneName);
+        pr.changePhoneParam(newPhone, oldPhoneName);
         resp.sendRedirect("catalog");
     }
 }

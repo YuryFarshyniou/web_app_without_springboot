@@ -30,13 +30,9 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String hi = req.getParameter("HiddenInput");
-        System.out.println(hi);
-
 
         String login = req.getParameter("login");
         String pass = req.getParameter("pass");
-        System.out.println(pass);
-        System.out.println(login);
         if (login == null || pass == null) {
             resp.sendError(401);
             return;
@@ -47,7 +43,7 @@ public class LoginServlet extends HttpServlet {
         }
         HttpSession hs = req.getSession(true);
         hs.setAttribute("username", login);
-
+        System.out.println("Header: " + req.getHeader("Refer"));
         resp.sendRedirect("home");
     }
 }
