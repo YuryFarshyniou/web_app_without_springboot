@@ -13,8 +13,10 @@
   <properties>
     <maven.compiler.target>1.8</maven.compiler.target>
     <maven.compiler.source>1.8</maven.compiler.source>
-      <junit.version>5.7.1</junit.version>
-      </properties>
+    <junit.version>5.7.1</junit.version>
+    <log4j.version>2.14.1</log4j.version>
+
+  </properties>
 
 <dependencies>
 
@@ -31,8 +33,11 @@
             <version>2.0.0</version>
         </dependency>
 
-
-
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>

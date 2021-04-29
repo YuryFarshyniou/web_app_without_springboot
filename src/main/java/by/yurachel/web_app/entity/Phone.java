@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Phone implements Serializable {
+
     private String name;
     private double price;
     private String processor;
