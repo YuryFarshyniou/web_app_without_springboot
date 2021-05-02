@@ -16,17 +16,14 @@ import java.io.IOException;
 public class CatalogServlet extends HttpServlet {
 
     private static final Logger ROOT_LOGGER = LogManager.getLogger();
-
     private final PhoneRepository pr = PhoneRepository.getInstance();
 
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         request.setAttribute("phones", pr.getPhones());
-        request.getRequestDispatcher("WEB-INF/catalog.jsp").forward(request, response);
-        ServletContext sc = getServletContext();
         ROOT_LOGGER.debug("Phone count: {} ",pr.getPhones().size());
         ROOT_LOGGER.info("Products retrieved successfully");
-        sc.setAttribute("phones", pr.getPhones());
+        request.getRequestDispatcher("WEB-INF/catalog.jsp").forward(request, response);
 
     }
 }

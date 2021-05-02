@@ -73,9 +73,7 @@
                         <td>${phone.processor}</td>
                         <td>
                             <form action="remove" method="post">
-                                <input type="hidden" value="${phone.name}" name="name">
-                                <input type="hidden" value="${phone.price}" name="price">
-                                <input type="hidden" value="${phone.processor}" name="processor">
+                                <input type="hidden" value="${phone.id}" name="id">
                                 <input type="submit" name="remove" value="Remove"/>
                             </form>
                         </td>
