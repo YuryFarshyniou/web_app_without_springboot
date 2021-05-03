@@ -64,7 +64,7 @@ public class Phone implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, price, processor);
+        return Objects.hash(id, name, price, processor) * 31;
     }
 
     @Override

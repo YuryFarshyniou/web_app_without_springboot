@@ -27,8 +27,9 @@ public class AddPhoneServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         PhoneRepository.ID.add(PhoneRepository.maxPhoneID() + 1);
-        Phone pe = new Phone(PhoneRepository.maxPhoneID(), req.getParameter("name"), Double.parseDouble(req.getParameter("price")), req.getParameter("processor"));
-        pr.addProduct(pe);
+        int id = PhoneRepository.maxPhoneID();
+        Phone pe = new Phone(id, req.getParameter("name"), Double.parseDouble(req.getParameter("price")), req.getParameter("processor"));
+
         LOGGER.info("New phone {} was added", pe);
         resp.sendRedirect("catalog");
     }
