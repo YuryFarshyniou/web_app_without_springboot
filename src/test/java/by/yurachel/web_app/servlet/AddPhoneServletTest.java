@@ -6,31 +6,29 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 class AddPhoneServletTest {
     private AddPhoneServlet addPhoneServlet;
     private PhoneRepository pr;
-
-    MockedStatic<PhoneRepository> dummy = Mockito.mockStatic(PhoneRepository.class);
+    private MockedStatic<PhoneRepository> capPhoneRep;
 
     @BeforeEach
     void setUp() {
         addPhoneServlet = new AddPhoneServlet();
         pr = mock(PhoneRepository.class);
+        capPhoneRep = Mockito.mockStatic(PhoneRepository.class);
     }
 
 
@@ -42,6 +40,7 @@ class AddPhoneServletTest {
         doNothing().when(requestDispatcher).forward(request, response);
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
         addPhoneServlet.doGet(request, response);
+
     }
 
     @Test
@@ -51,8 +50,9 @@ class AddPhoneServletTest {
         when(request.getParameter("name")).thenReturn("anyString()");
         when(request.getParameter("price")).thenReturn("50");
         when(request.getParameter("processor")).thenReturn("snap");
-        dummy.when(PhoneRepository::maxPhoneID).thenReturn(5);
-        Phone pe = new Phone(PhoneRepository.maxPhoneID(),
+        capPhoneRep.when(PhoneRepository::maxPhoneID).thenReturn(5);
+        int id = PhoneRepository.maxPhoneID();
+        Phone pe = new Phone(id,
                 request.getParameter("name"),
                 Double.parseDouble(request.getParameter("price")),
                 request.getParameter("processor"));
@@ -60,5 +60,7 @@ class AddPhoneServletTest {
         doNothing().when(response).sendRedirect(anyString());
         addPhoneServlet.doPost(request, response);
     }
+
+
 
 }

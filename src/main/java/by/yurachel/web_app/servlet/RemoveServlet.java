@@ -26,7 +26,7 @@ public class RemoveServlet extends HttpServlet {
             pr.removePhone(phoneIdToRemove);
 
         } catch (Exception e) {
-            ROOT_LOGGER.debug("Exception occurred {} {}", e.getMessage(), e);
+            ROOT_LOGGER.error("Exception occurred {} {}", e.getMessage(), e);
         }
         resp.sendRedirect("catalog");
     }

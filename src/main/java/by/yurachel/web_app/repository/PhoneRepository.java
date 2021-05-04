@@ -49,7 +49,11 @@ public class PhoneRepository {
     }
 
     public void removePhone(int id) {
-        phones.removeIf(phone -> phone.getId() == id);
+       boolean isRemove =  phones.removeIf(phone -> phone.getId() == id);
+       if(!isRemove){
+           throw new IllegalArgumentException("The phone wasn't found");
+       }
+
     }
 
     public Phone findPhoneById(int id) {
@@ -62,6 +66,7 @@ public class PhoneRepository {
         }
         return findPhone;
     }
+
 
     public int findPhoneIDByName(String name) {
         Integer findIdPhone = null;
