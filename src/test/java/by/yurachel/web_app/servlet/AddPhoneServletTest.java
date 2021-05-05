@@ -47,20 +47,36 @@ class AddPhoneServletTest {
     void added_New_Phone_In_Our_DB_With_Do_Post_Method_Test() throws ServletException, IOException {
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
-        when(request.getParameter("name")).thenReturn("anyString()");
+
+        when(request.getParameter("name")).thenReturn(anyString());
         when(request.getParameter("price")).thenReturn("50");
         when(request.getParameter("processor")).thenReturn("snap");
+
         capPhoneRep.when(PhoneRepository::maxPhoneID).thenReturn(5);
+
         int id = PhoneRepository.maxPhoneID();
+
         Phone pe = new Phone(id,
                 request.getParameter("name"),
                 Double.parseDouble(request.getParameter("price")),
                 request.getParameter("processor"));
+
         doNothing().when(pr).addProduct(pe);
+
         doNothing().when(response).sendRedirect(anyString());
         addPhoneServlet.doPost(request, response);
+
     }
 
-
-
+    @Test
+    void when_Param_Name_Is_null() throws IOException {
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        HttpServletResponse response = mock(HttpServletResponse.class);
+        when(request.getParameter("name")).thenReturn(null);
+        try {
+            addPhoneServlet.doPost(request, response);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Exception was caught");
+        }
+    }
 }

@@ -28,11 +28,11 @@ public class AddPhoneServlet extends HttpServlet {
 
         PhoneRepository.ID.add(PhoneRepository.maxPhoneID() + 1);
         int id = PhoneRepository.maxPhoneID();
-        String s = req.getParameter("name");
-        if (s == null) {
+        String name = req.getParameter("name");
+        if (name == null) {
             throw new IllegalArgumentException("Name of the phone can't be null.");
         }
-        Phone pe = new Phone(id, req.getParameter("name"), Double.parseDouble(req.getParameter("price")), req.getParameter("processor"));
+        Phone pe = new Phone(id, name, Double.parseDouble(req.getParameter("price")), req.getParameter("processor"));
         pr.addProduct(pe);
         LOGGER.info("New phone {} was added", pe);
         resp.sendRedirect("catalog");
