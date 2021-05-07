@@ -15,12 +15,12 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/remove")
 public class RemoveServlet extends HttpServlet {
     private static final Logger ROOT_LOGGER = LogManager.getRootLogger();
-    private final PhoneRepository pr = PhoneRepository.getInstance();
+    private  PhoneRepository pr = PhoneRepository.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
-            int phoneIdToRemove = Integer.parseInt(req.getParameter("id"));
+            long phoneIdToRemove = Long.parseLong(req.getParameter("id"));
             PhoneRepository.removeId(phoneIdToRemove);
             ROOT_LOGGER.info("Phone {} was removed",  pr.findPhoneById(phoneIdToRemove));
             pr.removePhone(phoneIdToRemove);

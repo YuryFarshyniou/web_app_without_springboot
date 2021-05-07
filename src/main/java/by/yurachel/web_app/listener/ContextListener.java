@@ -13,6 +13,11 @@ public class ContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         ROOT_LOGGER.info("Initialized {} ", sce.getServletContext().getContextPath());
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            ROOT_LOGGER.error("Exception was caught {} {}", e.getMessage(), e);
+        }
     }
 
     @Override

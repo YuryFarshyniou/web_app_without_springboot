@@ -1,47 +1,41 @@
 package by.yurachel.web_app.servlet;
 
+import by.yurachel.web_app.HttpInit;
+import by.yurachel.web_app.PhoneArgumentsProvider;
 import by.yurachel.web_app.entity.Phone;
 import by.yurachel.web_app.repository.PhoneRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ArgumentsSource;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
-class RemoveServletTest {
-    private RemoveServlet removeServlet;
-    private PhoneRepository pr;
-    private MockedStatic<PhoneRepository> capPhoneRep;
+class RemoveServletTest extends HttpInit {
 
-    @BeforeEach
-    void setUp() {
-        removeServlet = new RemoveServlet();
-        pr = mock(PhoneRepository.class);
-        capPhoneRep = Mockito.mockStatic(PhoneRepository.class);
-    }
+    @InjectMocks
+    private RemoveServlet removeServlet;
+
+    @Mock
+    private PhoneRepository phoneRepository;
 
     @Test
     void doPost() throws IOException {
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpServletResponse response = mock(HttpServletResponse.class);
-
-        doNothing().when(pr).removePhone(anyInt());
-        doNothing().when(response).sendRedirect(anyString());
-
-        when(request.getParameter(anyString())).thenReturn("1");
-
-        int id = Integer.parseInt(request.getParameter(anyString()));
-
-        when(pr.findPhoneById(id)).thenThrow(IllegalArgumentException.class);
-
+        when(request.getParameter("id")).thenReturn("2");
+        doNothing().when(phoneRepository).removePhone(anyLong());
         removeServlet.doPost(request, response);
+        verify(phoneRepository).removePhone(Long.parseLong(request.getParameter("id")));
     }
 
 }

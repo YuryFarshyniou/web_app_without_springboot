@@ -1,6 +1,8 @@
 package by.yurachel.web_app.servlet;
 
+import by.yurachel.web_app.entity.Phone;
 import by.yurachel.web_app.repository.PhoneRepository;
+import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,19 +13,33 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "catalog", urlPatterns = "/catalog")
 public class CatalogServlet extends HttpServlet {
 
     private static final Logger ROOT_LOGGER = LogManager.getLogger();
-    private final PhoneRepository pr = PhoneRepository.getInstance();
+    private PhoneRepository pr;
 
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        pr = PhoneRepository.getInstance();
+    }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.setAttribute("phones", pr.getPhones());
-        ROOT_LOGGER.debug("Phone count: {} ",pr.getPhones().size());
+        final List<Phone> phones = pr.getPhones();
+        if (!phones.isEmpty()) {
+            request.setAttribute("phones", phones);
+        }
+        ROOT_LOGGER.debug("Phone count: {} ", phones.size());
         ROOT_LOGGER.info("Products retrieved successfully");
         request.getRequestDispatcher("WEB-INF/catalog.jsp").forward(request, response);
 
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
     }
 }

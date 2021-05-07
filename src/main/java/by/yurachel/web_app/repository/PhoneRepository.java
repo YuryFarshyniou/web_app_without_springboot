@@ -1,6 +1,9 @@
 package by.yurachel.web_app.repository;
 
+import by.yurachel.web_app.dao.PhoneListDAO;
 import by.yurachel.web_app.entity.Phone;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,28 +11,29 @@ import java.util.Collections;
 import java.util.List;
 
 public class PhoneRepository {
-    private static final PhoneRepository INSTANCE = new PhoneRepository();
-    private final List<Phone> phones = new ArrayList<>();
-    public static final List<Integer> ID = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
+    private static  PhoneRepository INSTANCE;
+    private final List<Phone> phones;
+    public static final List<Long> ID = new ArrayList<>(Arrays.asList(1L, 2L, 3L, 4L, 5L));
+    public static final Logger ROOT_LOGGER = LogManager.getRootLogger();
 
 
     public static PhoneRepository getInstance() {
+        if (INSTANCE == null) {
+            return INSTANCE = new PhoneRepository();
+        }
         return INSTANCE;
     }
 
     private PhoneRepository() {
-        phones.add(new Phone(1, "Xiaomi Mi 11 lite", 500, "Snapdragon 732G"));
-        phones.add(new Phone(2, "Xiaomi Mi 11 ultra", 1200, "Snapdragon 888"));
-        phones.add(new Phone(3, "Iphone 12 mini", 1000, "Apple A14 Bionic"));
-        phones.add(new Phone(4, "Samsung Galaxy S20", 900, "Exynos 990"));
-        phones.add(new Phone(5, "Poco X3 Pro", 350, "Snapdragon 860"));
+        PhoneListDAO phoneDAO = new PhoneListDAO();
+        this.phones = phoneDAO.findAll();
     }
 
     public List<Phone> getPhones() {
         return this.phones;
     }
 
-    public void addProduct(Phone phone) {
+    public void addPhone(Phone phone) {
         phones.add(phone);
     }
 
@@ -48,15 +52,11 @@ public class PhoneRepository {
         }
     }
 
-    public void removePhone(int id) {
-       boolean isRemove =  phones.removeIf(phone -> phone.getId() == id);
-       if(!isRemove){
-           throw new IllegalArgumentException("The phone wasn't found");
-       }
-
+    public void removePhone(long id) {
+        phones.removeIf(phone -> phone.getId() == id);
     }
 
-    public Phone findPhoneById(int id) {
+    public Phone findPhoneById(long id) {
         Phone findPhone = new Phone();
         for (Phone phone : phones) {
             if (phone.getId() == id) {
@@ -68,25 +68,29 @@ public class PhoneRepository {
     }
 
 
-    public int findPhoneIDByName(String name) {
-        Integer findIdPhone = null;
-        for (Phone phone : phones) {
-            if (phone.getName().equals(name)) {
-                findIdPhone = phone.getId();
-                break;
+    public long findPhoneIDByName(String name) {
+        Long findIdPhone = null;
+        try {
+            for (Phone phone : phones) {
+                if (phone.getName().equals(name)) {
+                    findIdPhone = phone.getId();
+                    break;
+                }
             }
-        }
-        if (findIdPhone == null) {
-            throw new NullPointerException("Such phone wasn't found");
+            if (findIdPhone == null) {
+                throw new IllegalArgumentException();
+            }
+        } catch (IllegalArgumentException e) {
+            ROOT_LOGGER.error("Phone wasn't found: {} ", name);
         }
         return findIdPhone;
     }
 
-    public static int maxPhoneID() {
+    public static long maxPhoneID() {
         return Collections.max(ID);
     }
 
-    public static void removeId(int id) {
+    public static void removeId(long id) {
         ID.removeIf(id2 -> id2 == id);
     }
 

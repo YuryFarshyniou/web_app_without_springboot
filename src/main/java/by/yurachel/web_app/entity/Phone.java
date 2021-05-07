@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Phone implements Serializable {
 
-    private int id;
+    private long id;
     private String name;
     private double price;
     private String processor;
@@ -36,15 +36,15 @@ public class Phone implements Serializable {
         this.processor = processor;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Phone(int id, String name, double price, String processor) {
+    public Phone(long id, String name, double price, String processor) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -59,12 +59,12 @@ public class Phone implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Phone phone = (Phone) o;
-        return id == phone.id && Double.compare(phone.price, price) == 0 && Objects.equals(name, phone.name) && Objects.equals(processor, phone.processor);
+        return id == phone.id && Double.compare(phone.price, price) == 0 && name.equals(phone.name) && processor.equals(phone.processor);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, price, processor) * 31;
+        return Objects.hash(id, name, price, processor);
     }
 
     @Override

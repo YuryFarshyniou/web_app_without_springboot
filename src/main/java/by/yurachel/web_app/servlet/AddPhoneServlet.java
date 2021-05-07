@@ -14,8 +14,8 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/addPhone")
 public class AddPhoneServlet extends HttpServlet {
-    private PhoneRepository pr = PhoneRepository.getInstance();
-    public static final Logger LOGGER = LogManager.getRootLogger();
+    private  PhoneRepository pr = PhoneRepository.getInstance();
+    public static final Logger ROOT_LOGGER = LogManager.getRootLogger();
 
 
     @Override
@@ -26,15 +26,16 @@ public class AddPhoneServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        PhoneRepository.ID.add(PhoneRepository.maxPhoneID() + 1);
-        int id = PhoneRepository.maxPhoneID();
+        PhoneRepository.ID.add((PhoneRepository.maxPhoneID() + 1));
+        long id = PhoneRepository.maxPhoneID();
         String name = req.getParameter("name");
         if (name == null) {
             throw new IllegalArgumentException("Name of the phone can't be null.");
         }
-        Phone pe = new Phone(id, name, Double.parseDouble(req.getParameter("price")), req.getParameter("processor"));
-        pr.addProduct(pe);
-        LOGGER.info("New phone {} was added", pe);
+        Phone pe = new Phone(id, name,
+                Double.parseDouble(req.getParameter("price")), req.getParameter("processor"));
+        pr.addPhone(pe);
+        ROOT_LOGGER.info("New phone {} was added", pe);
         resp.sendRedirect("catalog");
     }
 }

@@ -1,82 +1,55 @@
 package by.yurachel.web_app.servlet;
 
+import by.yurachel.web_app.HttpInit;
 import by.yurachel.web_app.entity.Phone;
 import by.yurachel.web_app.repository.PhoneRepository;
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.*;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
 
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-class AddPhoneServletTest {
+
+class AddPhoneServletTest extends HttpInit {
+
+    @InjectMocks
     private AddPhoneServlet addPhoneServlet;
-    private PhoneRepository pr;
+
+    @Mock
+    private PhoneRepository phoneRepository;
+
+    @Mock
     private MockedStatic<PhoneRepository> capPhoneRep;
 
-    @BeforeEach
-    void setUp() {
-        addPhoneServlet = new AddPhoneServlet();
-        pr = mock(PhoneRepository.class);
-        capPhoneRep = Mockito.mockStatic(PhoneRepository.class);
-    }
-
 
     @Test
-    void doGetTest() throws ServletException, IOException {
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpServletResponse response = mock(HttpServletResponse.class);
-        RequestDispatcher requestDispatcher = mock(RequestDispatcher.class);
-        doNothing().when(requestDispatcher).forward(request, response);
-        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
-        addPhoneServlet.doGet(request, response);
-
-    }
-
-    @Test
-    void added_New_Phone_In_Our_DB_With_Do_Post_Method_Test() throws ServletException, IOException {
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpServletResponse response = mock(HttpServletResponse.class);
-
-        when(request.getParameter("name")).thenReturn(anyString());
-        when(request.getParameter("price")).thenReturn("50");
+    void testDoPost() throws IOException {
+        capPhoneRep.when(PhoneRepository::maxPhoneID).thenReturn(5L);
+        when(request.getParameter("name")).thenReturn("anyString()");
+        when(request.getParameter("price")).thenReturn("2");
         when(request.getParameter("processor")).thenReturn("snap");
-
-        capPhoneRep.when(PhoneRepository::maxPhoneID).thenReturn(5);
-
-        int id = PhoneRepository.maxPhoneID();
-
-        Phone pe = new Phone(id,
-                request.getParameter("name"),
-                Double.parseDouble(request.getParameter("price")),
-                request.getParameter("processor"));
-
-        doNothing().when(pr).addProduct(pe);
-
-        doNothing().when(response).sendRedirect(anyString());
+        doNothing().when(phoneRepository).addPhone(any(Phone.class));
         addPhoneServlet.doPost(request, response);
+        verify(phoneRepository).addPhone(any(Phone.class));
 
     }
 
     @Test
-    void when_Param_Name_Is_null() throws IOException {
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpServletResponse response = mock(HttpServletResponse.class);
+    void test_Do_Post_When_Name_Equals_Null() {
         when(request.getParameter("name")).thenReturn(null);
-        try {
-            addPhoneServlet.doPost(request, response);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Exception was caught");
-        }
+        when(request.getParameter("price")).thenReturn("2");
+        when(request.getParameter("processor")).thenReturn("snap");
+        capPhoneRep.when(PhoneRepository::maxPhoneID).thenReturn(5L);
+        IllegalArgumentException illegalArgumentException =
+                assertThrows(IllegalArgumentException.class, () -> addPhoneServlet.doPost(request, response));
+
+        assertNotNull(illegalArgumentException);
+        verifyNoInteractions(response);
+        assertEquals("Name of the phone can't be null.", illegalArgumentException.getMessage());
     }
 }
