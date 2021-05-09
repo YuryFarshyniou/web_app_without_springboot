@@ -30,12 +30,28 @@ class RemoveServletTest extends HttpInit {
     @Mock
     private PhoneRepository phoneRepository;
 
+
     @Test
     void doPost() throws IOException {
         when(request.getParameter("id")).thenReturn("2");
         doNothing().when(phoneRepository).removePhone(anyLong());
+        when(phoneRepository.removeId(anyLong())).thenReturn(true);
         removeServlet.doPost(request, response);
         verify(phoneRepository).removePhone(Long.parseLong(request.getParameter("id")));
     }
+
+    @Test
+    void test_Post_with_Null_ID() throws IOException {
+        when(request.getParameter("id")).thenReturn(null);
+        removeServlet.doPost(request, response);
+        verifyNoInteractions(phoneRepository);
+    }
+
+    @Test
+    void test_Post_When_ID_Equals_Negative_Number() throws IOException {
+        when(request.getParameter("id")).thenReturn("-1");
+        removeServlet.doPost(request, response);
+    }
+
 
 }

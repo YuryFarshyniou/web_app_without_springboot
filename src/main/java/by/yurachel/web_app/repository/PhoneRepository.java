@@ -5,27 +5,30 @@ import by.yurachel.web_app.entity.Phone;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class PhoneRepository {
-    private static  PhoneRepository INSTANCE;
+
     private final List<Phone> phones;
-    public static final List<Long> ID = new ArrayList<>(Arrays.asList(1L, 2L, 3L, 4L, 5L));
+    private final List<Long> id;
     public static final Logger ROOT_LOGGER = LogManager.getRootLogger();
 
 
+    public List<Long> getId() {
+        return id;
+    }
+
+    public static class PhoneRepositoryHolder {
+        public static final PhoneRepository INSTANCE = new PhoneRepository();
+    }
+
     public static PhoneRepository getInstance() {
-        if (INSTANCE == null) {
-            return INSTANCE = new PhoneRepository();
-        }
-        return INSTANCE;
+        return PhoneRepositoryHolder.INSTANCE;
     }
 
     private PhoneRepository() {
         PhoneListDAO phoneDAO = new PhoneListDAO();
+        id = new ArrayList<>(Arrays.asList(1L, 2L, 3L, 4L, 5L));
         this.phones = phoneDAO.findAll();
     }
 
@@ -47,6 +50,7 @@ public class PhoneRepository {
                 break;
             }
         }
+
         if (phoneExists) {
             phones.set(index, newPhone);
         }
@@ -57,42 +61,29 @@ public class PhoneRepository {
     }
 
     public Phone findPhoneById(long id) {
-        Phone findPhone = new Phone();
-        for (Phone phone : phones) {
-            if (phone.getId() == id) {
-                findPhone = phone;
-                break;
-            }
-        }
-        return findPhone;
+        return phones.stream()
+                .filter((phone) -> phone.getId() == id)
+                .findFirst()
+                .orElse(null);
     }
 
 
-    public long findPhoneIDByName(String name) {
-        Long findIdPhone = null;
-        try {
-            for (Phone phone : phones) {
-                if (phone.getName().equals(name)) {
-                    findIdPhone = phone.getId();
-                    break;
-                }
-            }
-            if (findIdPhone == null) {
-                throw new IllegalArgumentException();
-            }
-        } catch (IllegalArgumentException e) {
-            ROOT_LOGGER.error("Phone wasn't found: {} ", name);
-        }
-        return findIdPhone;
+    public Long findPhoneIDByName(String name) {
+        Optional<Phone> phone2 = phones.stream()
+                .filter((phone) -> phone.getName().equals(name))
+                .findFirst();
+        return (phone2.isPresent()) ? phone2.get().getId() : null;
     }
 
-    public static long maxPhoneID() {
-        return Collections.max(ID);
+    public long maxPhoneID() {
+        return Collections.max(this.id);
     }
 
-    public static void removeId(long id) {
-        ID.removeIf(id2 -> id2 == id);
+    public void addID(long id) {
+        this.id.add(id + 1);
     }
 
-
+    public boolean removeId(long id) {
+        return this.id.removeIf(id2 -> id2 == id);
+    }
 }

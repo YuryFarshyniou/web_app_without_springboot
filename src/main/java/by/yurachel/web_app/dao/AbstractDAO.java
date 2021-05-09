@@ -13,4 +13,6 @@ public abstract class AbstractDAO<T> {
 
     public abstract boolean update(T object);
 
+    public abstract boolean addEntity(T object);
+
 }

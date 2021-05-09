@@ -69,7 +69,8 @@ class CatalogServletTest extends HttpInit {
     void do_Get_Throw_Exception() throws ServletException, IOException {
         when(phoneRepository.getPhones()).thenThrow(new IllegalArgumentException("some message"));
         IllegalArgumentException illegalArgumentException =
-                assertThrows(IllegalArgumentException.class, () -> catalogServlet.doGet(request, response));
+                assertThrows(IllegalArgumentException.class, () ->
+                        catalogServlet.doGet(request, response));
         assertNotNull(illegalArgumentException);
         assertEquals("some message", illegalArgumentException.getMessage());
         verify(phoneRepository).getPhones();

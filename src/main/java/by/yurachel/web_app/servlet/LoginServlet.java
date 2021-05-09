@@ -34,13 +34,12 @@ public class LoginServlet extends HttpServlet {
         String pass = req.getParameter("pass");
         if (login == null || pass == null) {
             resp.sendError(401);
-            ROOT_LOGGER.debug("{} login or pass equals null. ", req.getSession().getId());
-
+            ROOT_LOGGER.error("{} login or pass equals null. ", req.getSession().getId());
             return;
         }
         if (!login.equals(userName) || !pass.equals(password)) {
             resp.sendError(401);
-            ROOT_LOGGER.debug("{} session can't login. ", req.getSession().getId());
+            ROOT_LOGGER.error("{} session can't login. ", req.getSession().getId());
             return;
         }
         HttpSession hs = req.getSession(true);

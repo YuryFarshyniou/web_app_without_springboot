@@ -25,10 +25,16 @@ public class ChangeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String oldPhoneName = req.getParameter("oldName");
-        long oldPhoneId = pr.findPhoneIDByName(oldPhoneName);
-        Phone newPhone = new Phone(oldPhoneId, req.getParameter("name"), Double.parseDouble(req.getParameter("price")), req.getParameter("processor"));
-        ROOT_LOGGER.info("Old phone {} was changed by new phone {}", oldPhoneName, newPhone);
-        pr.changePhoneParam(newPhone, oldPhoneName);
-        resp.sendRedirect("catalog");
+        try {
+            long oldPhoneId = pr.findPhoneIDByName(oldPhoneName);
+            Phone newPhone = new Phone(oldPhoneId, req.getParameter("name"),
+                    Double.parseDouble(req.getParameter("price")), req.getParameter("processor"));
+            ROOT_LOGGER.info("Old phone {} was changed by new phone {}", oldPhoneName, newPhone);
+            pr.changePhoneParam(newPhone, oldPhoneName);
+            resp.sendRedirect("catalog");
+        } catch (NullPointerException e) {
+            ROOT_LOGGER.error("Phone with name: {} wasn't found. {} {}", oldPhoneName
+                    ,e.getMessage(),e);
+        }
     }
 }

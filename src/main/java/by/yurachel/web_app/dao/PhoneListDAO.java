@@ -44,6 +44,7 @@ public class PhoneListDAO extends AbstractDAO<Phone> {
 
     @Override
     public boolean remove(Phone object) {
+
         throw new UnsupportedOperationException();
     }
 
@@ -54,6 +55,11 @@ public class PhoneListDAO extends AbstractDAO<Phone> {
 
     @Override
     public boolean update(Phone object) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean addEntity(Phone object) {
         throw new UnsupportedOperationException();
     }
 }

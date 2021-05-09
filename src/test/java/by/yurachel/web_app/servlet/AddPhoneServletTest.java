@@ -23,13 +23,10 @@ class AddPhoneServletTest extends HttpInit {
     @Mock
     private PhoneRepository phoneRepository;
 
-    @Mock
-    private MockedStatic<PhoneRepository> capPhoneRep;
-
 
     @Test
     void testDoPost() throws IOException {
-        capPhoneRep.when(PhoneRepository::maxPhoneID).thenReturn(5L);
+        when(phoneRepository.maxPhoneID()).thenReturn(5L);
         when(request.getParameter("name")).thenReturn("anyString()");
         when(request.getParameter("price")).thenReturn("2");
         when(request.getParameter("processor")).thenReturn("snap");
@@ -44,7 +41,7 @@ class AddPhoneServletTest extends HttpInit {
         when(request.getParameter("name")).thenReturn(null);
         when(request.getParameter("price")).thenReturn("2");
         when(request.getParameter("processor")).thenReturn("snap");
-        capPhoneRep.when(PhoneRepository::maxPhoneID).thenReturn(5L);
+        when(phoneRepository.maxPhoneID()).thenReturn(5L);
         IllegalArgumentException illegalArgumentException =
                 assertThrows(IllegalArgumentException.class, () -> addPhoneServlet.doPost(request, response));
 

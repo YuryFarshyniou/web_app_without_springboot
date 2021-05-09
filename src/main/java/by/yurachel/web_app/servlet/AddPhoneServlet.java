@@ -14,7 +14,7 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/addPhone")
 public class AddPhoneServlet extends HttpServlet {
-    private  PhoneRepository pr = PhoneRepository.getInstance();
+    private PhoneRepository pr = PhoneRepository.getInstance();
     public static final Logger ROOT_LOGGER = LogManager.getRootLogger();
 
 
@@ -26,8 +26,8 @@ public class AddPhoneServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        PhoneRepository.ID.add((PhoneRepository.maxPhoneID() + 1));
-        long id = PhoneRepository.maxPhoneID();
+        pr.addID(pr.maxPhoneID());
+        long id = pr.maxPhoneID();
         String name = req.getParameter("name");
         if (name == null) {
             throw new IllegalArgumentException("Name of the phone can't be null.");
