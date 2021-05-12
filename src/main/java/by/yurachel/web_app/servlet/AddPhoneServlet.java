@@ -7,12 +7,16 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
 @WebServlet(urlPatterns = "/addPhone")
 public class AddPhoneServlet extends HttpServlet {
     private PhoneRepository pr = PhoneRepository.getInstance();
+    public static final Logger ROOT_LOGGER = LogManager.getRootLogger();
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -21,8 +25,17 @@ public class AddPhoneServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        Phone pe = new Phone(req.getParameter("name"), Double.parseDouble(req.getParameter("price")), req.getParameter("processor"));
-        pr.addProduct(pe);
+
+        pr.addID(pr.maxPhoneID());
+        long id = pr.maxPhoneID();
+        String name = req.getParameter("name");
+        if (name == null) {
+            throw new IllegalArgumentException("Name of the phone can't be null.");
+        }
+        Phone pe = new Phone(id, name,
+                Double.parseDouble(req.getParameter("price")), req.getParameter("processor"));
+        pr.addPhone(pe);
+        ROOT_LOGGER.info("New phone {} was added", pe);
         resp.sendRedirect("catalog");
     }
 }

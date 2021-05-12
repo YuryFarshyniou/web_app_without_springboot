@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
@@ -13,6 +15,7 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
     private String userName;
     private String password;
+    private static final Logger ROOT_LOGGER = LogManager.getRootLogger();
 
     @Override
     public void init() {
@@ -27,21 +30,20 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String hi = req.getParameter("HiddenInput");
-
         String login = req.getParameter("login");
         String pass = req.getParameter("pass");
         if (login == null || pass == null) {
             resp.sendError(401);
+            ROOT_LOGGER.error("{} login or pass equals null. ", req.getSession().getId());
             return;
         }
         if (!login.equals(userName) || !pass.equals(password)) {
             resp.sendError(401);
+            ROOT_LOGGER.error("{} session can't login. ", req.getSession().getId());
             return;
         }
         HttpSession hs = req.getSession(true);
         hs.setAttribute("username", login);
-        System.out.println("Header: " + req.getHeader("Refer"));
         resp.sendRedirect("home");
     }
 }

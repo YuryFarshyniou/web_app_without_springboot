@@ -1,33 +1,42 @@
 package by.yurachel.web_app.repository;
 
+import by.yurachel.web_app.dao.PhoneListDAO;
 import by.yurachel.web_app.entity.Phone;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class PhoneRepository {
-    private static final PhoneRepository INSTANCE = new PhoneRepository();
 
-    private final List<Phone> phones = new ArrayList<>();
+    private final List<Phone> phones;
+    private final List<Long> id;
+    public static final Logger ROOT_LOGGER = LogManager.getRootLogger();
 
+
+    public List<Long> getId() {
+        return id;
+    }
+
+    public static class PhoneRepositoryHolder {
+        public static final PhoneRepository INSTANCE = new PhoneRepository();
+    }
 
     public static PhoneRepository getInstance() {
-        return INSTANCE;
+        return PhoneRepositoryHolder.INSTANCE;
     }
 
     private PhoneRepository() {
-        phones.add(new Phone("Xiaomi Mi 11 lite", 500, "Snapdragon 732G"));
-        phones.add(new Phone("Xiaomi Mi 11 ultra", 1200, "Snapdragon 888"));
-        phones.add(new Phone("Iphone 12 mini", 1000, "Apple A14 Bionic"));
-        phones.add(new Phone("Samsung Galaxy S20", 900, "Exynos 990"));
-        phones.add(new Phone("Poco X3 Pro", 350, "Snapdragon 860"));
+        PhoneListDAO phoneDAO = new PhoneListDAO();
+        id = new ArrayList<>(Arrays.asList(1L, 2L, 3L, 4L, 5L));
+        this.phones = phoneDAO.findAll();
     }
 
     public List<Phone> getPhones() {
         return this.phones;
     }
 
-    public void addProduct(Phone phone) {
+    public void addPhone(Phone phone) {
         phones.add(phone);
     }
 
@@ -41,13 +50,40 @@ public class PhoneRepository {
                 break;
             }
         }
+
         if (phoneExists) {
             phones.set(index, newPhone);
         }
     }
 
-    public void removePhone(Phone phone) {
-        getPhones().remove(phone);
+    public void removePhone(long id) {
+        phones.removeIf(phone -> phone.getId() == id);
+    }
 
+    public Phone findPhoneById(long id) {
+        return phones.stream()
+                .filter((phone) -> phone.getId() == id)
+                .findFirst()
+                .orElse(null);
+    }
+
+
+    public Long findPhoneIDByName(String name) {
+        Optional<Phone> phone2 = phones.stream()
+                .filter((phone) -> phone.getName().equals(name))
+                .findFirst();
+        return (phone2.isPresent()) ? phone2.get().getId() : null;
+    }
+
+    public long maxPhoneID() {
+        return Collections.max(this.id);
+    }
+
+    public void addID(long id) {
+        this.id.add(id + 1);
+    }
+
+    public boolean removeId(long id) {
+        return this.id.removeIf(id2 -> id2 == id);
     }
 }

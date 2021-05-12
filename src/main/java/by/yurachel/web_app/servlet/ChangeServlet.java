@@ -7,12 +7,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
 @WebServlet(urlPatterns = "/change")
 public class ChangeServlet extends HttpServlet {
     private PhoneRepository pr = PhoneRepository.getInstance();
+    private static final Logger ROOT_LOGGER = LogManager.getRootLogger();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -21,9 +24,17 @@ public class ChangeServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        Phone newPhone = new Phone(req.getParameter("name"), Double.parseDouble(req.getParameter("price")), req.getParameter("processor"));
         String oldPhoneName = req.getParameter("oldName");
-        pr.changePhoneParam(newPhone, oldPhoneName);
-        resp.sendRedirect("catalog");
+        try {
+            long oldPhoneId = pr.findPhoneIDByName(oldPhoneName);
+            Phone newPhone = new Phone(oldPhoneId, req.getParameter("name"),
+                    Double.parseDouble(req.getParameter("price")), req.getParameter("processor"));
+            ROOT_LOGGER.info("Old phone {} was changed by new phone {}", oldPhoneName, newPhone);
+            pr.changePhoneParam(newPhone, oldPhoneName);
+            resp.sendRedirect("catalog");
+        } catch (NullPointerException e) {
+            ROOT_LOGGER.error("Phone with name: {} wasn't found. {} {}", oldPhoneName
+                    ,e.getMessage(),e);
+        }
     }
 }
