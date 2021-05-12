@@ -2,9 +2,12 @@ package by.yurachel.web_app;
 
 import by.yurachel.web_app.repository.PhoneRepository;
 import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -27,6 +30,15 @@ public abstract class HttpInit {
 
     @Mock(lenient = true)
     protected RequestDispatcher requestDispatcher;
+
+    @Mock(lenient = true)
+    protected ServletConfig config;
+
+    @Mock(lenient = true)
+    protected ServletContext context;
+
+    @Mock(lenient = true)
+    protected HttpSession session;
 
     @BeforeEach
     protected void setUp() throws ServletException, IOException {

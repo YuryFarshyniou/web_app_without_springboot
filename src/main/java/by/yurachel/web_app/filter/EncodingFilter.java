@@ -14,11 +14,11 @@ import java.nio.charset.StandardCharsets;
 
 @WebFilter(filterName = "encoding", urlPatterns = "/*")
 public class EncodingFilter extends HttpFilter {
-    private static final Logger ROOT_LOGGER = LogManager.getRootLogger();
+    private static final Logger LOGGER = LogManager.getLogger(EncodingFilter.class);
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-        ROOT_LOGGER.info("Set encoding");
+        LOGGER.info("Set encoding");
         req.setCharacterEncoding(StandardCharsets.UTF_8.name());
         chain.doFilter(req, res);
     }

@@ -11,7 +11,7 @@ public class PhoneRepository {
 
     private final List<Phone> phones;
     private final List<Long> id;
-    public static final Logger ROOT_LOGGER = LogManager.getRootLogger();
+    public static final Logger LOGGER = LogManager.getLogger(PhoneRepository.class);
 
 
     public List<Long> getId() {

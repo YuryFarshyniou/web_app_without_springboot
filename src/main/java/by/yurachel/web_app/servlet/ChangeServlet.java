@@ -15,7 +15,7 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/change")
 public class ChangeServlet extends HttpServlet {
     private PhoneRepository pr = PhoneRepository.getInstance();
-    private static final Logger ROOT_LOGGER = LogManager.getRootLogger();
+    private static final Logger LOGGER = LogManager.getLogger(ChangeServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,11 +29,11 @@ public class ChangeServlet extends HttpServlet {
             long oldPhoneId = pr.findPhoneIDByName(oldPhoneName);
             Phone newPhone = new Phone(oldPhoneId, req.getParameter("name"),
                     Double.parseDouble(req.getParameter("price")), req.getParameter("processor"));
-            ROOT_LOGGER.info("Old phone {} was changed by new phone {}", oldPhoneName, newPhone);
+            LOGGER.info("Old phone {} was changed by new phone {}", oldPhoneName, newPhone);
             pr.changePhoneParam(newPhone, oldPhoneName);
             resp.sendRedirect("catalog");
         } catch (NullPointerException e) {
-            ROOT_LOGGER.error("Phone with name: {} wasn't found. {} {}", oldPhoneName
+            LOGGER.error("Phone with name: {} wasn't found. {} {}", oldPhoneName
                     ,e.getMessage(),e);
         }
     }

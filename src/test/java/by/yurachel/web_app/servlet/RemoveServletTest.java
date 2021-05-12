@@ -41,17 +41,15 @@ class RemoveServletTest extends HttpInit {
     }
 
     @Test
-    void test_Post_with_Null_ID() throws IOException {
+    void testPostWithNullID() throws IOException {
         when(request.getParameter("id")).thenReturn(null);
         removeServlet.doPost(request, response);
         verifyNoInteractions(phoneRepository);
     }
 
     @Test
-    void test_Post_When_ID_Equals_Negative_Number() throws IOException {
+    void testPostWhenIDEqualsNegativeNumber() throws IOException {
         when(request.getParameter("id")).thenReturn("-1");
         removeServlet.doPost(request, response);
     }
-
-
 }

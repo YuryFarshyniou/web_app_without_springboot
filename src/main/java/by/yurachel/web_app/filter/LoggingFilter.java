@@ -13,11 +13,11 @@ import java.io.IOException;
 
 @WebFilter(filterName = "logging", urlPatterns = "/*")
 public class LoggingFilter extends HttpFilter {
-    private static final Logger ROOT_LOGGER = LogManager.getRootLogger();
+    private static final Logger LOGGER = LogManager.getLogger(LoggingFilter.class);
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-        ROOT_LOGGER.info("Entered filter, request: {} ", req.getRemoteHost());
+        LOGGER.info("Entered filter, request: {} ", req.getRemoteHost());
         chain.doFilter(req, res);
     }
 }

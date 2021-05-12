@@ -8,10 +8,10 @@ import org.apache.logging.log4j.Logger;
 
 @WebListener
 public class SessionListener implements HttpSessionListener {
-    private static final Logger ROOT_LOGGER = LogManager.getRootLogger();
+    private static final Logger LOGGER = LogManager.getLogger(SessionListener.class);
 
     @Override
     public void sessionCreated(HttpSessionEvent se) {
-        ROOT_LOGGER.info("Session initialized, ID:{}", se.getSession().getId());
+        LOGGER.info("Session initialized, ID:{}", se.getSession().getId());
     }
 }

@@ -43,7 +43,7 @@ class ChangeServletTest extends HttpInit {
     }
 
     @Test
-    void test_Post_When_OldPhoneName_Equals_Null() throws IOException {
+    void testPostWhenOldPhoneNameEqualsNull() throws IOException {
         when(request.getParameter("oldName")).thenReturn(null);
         changeServlet.doPost(request, response);
         verify(phoneRepository).findPhoneIDByName(request.getParameter("oldName"));

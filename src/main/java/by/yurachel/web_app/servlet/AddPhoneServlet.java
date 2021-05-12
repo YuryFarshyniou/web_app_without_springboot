@@ -15,7 +15,7 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/addPhone")
 public class AddPhoneServlet extends HttpServlet {
     private PhoneRepository pr = PhoneRepository.getInstance();
-    public static final Logger ROOT_LOGGER = LogManager.getRootLogger();
+    public static final Logger LOGGER = LogManager.getLogger(AddPhoneServlet.class);
 
 
     @Override
@@ -35,7 +35,7 @@ public class AddPhoneServlet extends HttpServlet {
         Phone pe = new Phone(id, name,
                 Double.parseDouble(req.getParameter("price")), req.getParameter("processor"));
         pr.addPhone(pe);
-        ROOT_LOGGER.info("New phone {} was added", pe);
+        LOGGER.info("New phone {} was added", pe);
         resp.sendRedirect("catalog");
     }
 }

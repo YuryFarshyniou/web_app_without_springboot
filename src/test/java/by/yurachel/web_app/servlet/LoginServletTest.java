@@ -22,12 +22,7 @@ import static org.mockito.Mockito.*;
 class LoginServletTest extends HttpInit {
     @InjectMocks
     private LoginServlet loginServlet;
-    @Mock
-    private ServletConfig config;
-    @Mock
-    private ServletContext context;
-    @Mock
-    private HttpSession session;
+
 
     @Test
     void init() {
@@ -63,7 +58,7 @@ class LoginServletTest extends HttpInit {
     }
 
     @Test
-    void test_Post_When_Login_Or_Pass_Equals_Null() throws ServletException, IOException {
+    void testPostWhenLoginOrPassEqualsNull() throws ServletException, IOException {
         when(request.getParameter("login")).thenReturn(null);
         when(request.getParameter("pass")).thenReturn("admin");
         when(request.getSession()).thenReturn(session);
@@ -72,7 +67,7 @@ class LoginServletTest extends HttpInit {
     }
 
     @Test
-    void test_Post_When_Login_Or_Pass_Not_Equals_UserName_Or_Password() throws ServletException, IOException {
+    void testPostWhenLoginOrPassNotEqualsUserNameOrPassword() throws ServletException, IOException {
         when(request.getParameter("login")).thenReturn("yurachel");
         when(request.getParameter("pass")).thenReturn("admin");
         when(request.getSession()).thenReturn(session);
