@@ -14,12 +14,13 @@ import java.util.List;
 public class PhoneListDAO extends AbstractDAO<Phone> {
 
     public static final String SELECT_ALL_FROM_PHONES = "SELECT * FROM phones";
-    public static final Logger ROOT_LOGGER = LogManager.getRootLogger();
+    public static final Logger LOGGER = LogManager.getLogger(PhoneListDAO.class);
+    private final ConnectorDB connector = ConnectorDB.getInstance();
 
     @Override
     public List<Phone> findAll() {
         List<Phone> phones = new ArrayList<>();
-        try (Connection connection = ConnectorDB.getConnection();
+        try (Connection connection = connector.getConnection();
              Statement statement = connection.createStatement()) {
             ResultSet rs = statement.executeQuery(SELECT_ALL_FROM_PHONES);
             while (rs.next()) {
@@ -31,8 +32,7 @@ public class PhoneListDAO extends AbstractDAO<Phone> {
                 phones.add(phone);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            ROOT_LOGGER.error("SQL connection exception: {} {}", e.getMessage(), e);
+            LOGGER.error("SQL connection exception: {} {}", e.getMessage(), e);
         }
         return phones;
     }
@@ -44,7 +44,6 @@ public class PhoneListDAO extends AbstractDAO<Phone> {
 
     @Override
     public boolean remove(Phone object) {
-
         throw new UnsupportedOperationException();
     }
 
@@ -54,12 +53,12 @@ public class PhoneListDAO extends AbstractDAO<Phone> {
     }
 
     @Override
-    public boolean update(Phone object) {
+    public Phone update(Phone object) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public boolean addEntity(Phone object) {
+    public Phone addEntity(Phone object) {
         throw new UnsupportedOperationException();
     }
 }

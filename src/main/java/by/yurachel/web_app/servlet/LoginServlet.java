@@ -15,7 +15,7 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
     private String userName;
     private String password;
-    private static final Logger ROOT_LOGGER = LogManager.getRootLogger();
+    private static final Logger LOGGER = LogManager.getLogger(LoginServlet.class);
 
     @Override
     public void init() {
@@ -34,12 +34,12 @@ public class LoginServlet extends HttpServlet {
         String pass = req.getParameter("pass");
         if (login == null || pass == null) {
             resp.sendError(401);
-            ROOT_LOGGER.error("{} login or pass equals null. ", req.getSession().getId());
+            LOGGER.error("{} login or pass equals null. ", req.getSession().getId());
             return;
         }
         if (!login.equals(userName) || !pass.equals(password)) {
             resp.sendError(401);
-            ROOT_LOGGER.error("{} session can't login. ", req.getSession().getId());
+            LOGGER.error("{} session can't login. ", req.getSession().getId());
             return;
         }
         HttpSession hs = req.getSession(true);

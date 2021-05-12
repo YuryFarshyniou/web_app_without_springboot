@@ -54,7 +54,7 @@ class CatalogServletTest extends HttpInit {
     }
 
     @Test
-    void do_Get_No_Products_Returned() throws ServletException, IOException {
+    void doGetNoProductsReturned() throws ServletException, IOException {
         when(phoneRepository.getPhones()).thenReturn(Collections.emptyList());
         catalogServlet.doGet(request, response);
 
@@ -66,7 +66,7 @@ class CatalogServletTest extends HttpInit {
     }
 
     @Test
-    void do_Get_Throw_Exception() throws ServletException, IOException {
+    void doGetThrowException() throws ServletException, IOException {
         when(phoneRepository.getPhones()).thenThrow(new IllegalArgumentException("some message"));
         IllegalArgumentException illegalArgumentException =
                 assertThrows(IllegalArgumentException.class, () ->

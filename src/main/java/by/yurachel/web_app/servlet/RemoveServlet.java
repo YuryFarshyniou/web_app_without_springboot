@@ -1,8 +1,6 @@
 package by.yurachel.web_app.servlet;
 
-import by.yurachel.web_app.entity.Phone;
 import by.yurachel.web_app.repository.PhoneRepository;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,7 +12,7 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/remove")
 public class RemoveServlet extends HttpServlet {
-    private static final Logger ROOT_LOGGER = LogManager.getRootLogger();
+    private static final Logger LOGGER = LogManager.getLogger(RemoveServlet.class);
     private PhoneRepository pr = PhoneRepository.getInstance();
 
     @Override
@@ -25,11 +23,11 @@ public class RemoveServlet extends HttpServlet {
             if (!wasRemovedId) {
                 throw new IllegalArgumentException("Phone with this id wasn't found.");
             }
-            ROOT_LOGGER.info("Phone {} was removed", pr.findPhoneById(phoneIdToRemove));
+            LOGGER.info("Phone {} was removed", pr.findPhoneById(phoneIdToRemove));
             pr.removePhone(phoneIdToRemove);
 
         } catch (IllegalArgumentException e) {
-            ROOT_LOGGER.error("Exception occurred: {} {}", e.getMessage(), e);
+            LOGGER.error("Exception occurred: {} {}", e.getMessage(), e);
         }
         resp.sendRedirect("catalog");
     }

@@ -37,7 +37,7 @@ class AddPhoneServletTest extends HttpInit {
     }
 
     @Test
-    void test_Do_Post_When_Name_Equals_Null() {
+    void testDoPostWhenNameEqualsNull() {
         when(request.getParameter("name")).thenReturn(null);
         when(request.getParameter("price")).thenReturn("2");
         when(request.getParameter("processor")).thenReturn("snap");

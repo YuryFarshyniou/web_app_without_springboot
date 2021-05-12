@@ -11,8 +11,10 @@ public abstract class AbstractDAO<T> {
 
     public abstract boolean remove(int id);
 
-    public abstract boolean update(T object);
+    public abstract T update(T object);
 
-    public abstract boolean addEntity(T object);
+    public abstract T addEntity(T object);
+
+
 
 }

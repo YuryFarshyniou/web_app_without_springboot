@@ -8,20 +8,21 @@ import org.apache.logging.log4j.Logger;
 
 @WebListener
 public class ContextListener implements ServletContextListener {
-    public static final Logger ROOT_LOGGER = LogManager.getRootLogger();
+    public static final Logger LOGGER = LogManager.getLogger(ContextListener.class);
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        ROOT_LOGGER.info("Initialized {} ", sce.getServletContext().getContextPath());
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            ROOT_LOGGER.error("Exception was caught {} {}", e.getMessage(), e);
+            LOGGER.error("Exception was caught {} {}", e.getMessage(), e);
         }
+        LOGGER.info("Initialized {} ", sce.getServletContext().getContextPath());
+
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        ROOT_LOGGER.info("Destroyed {}", sce.getServletContext().getContextPath());
+        LOGGER.info("Destroyed {}", sce.getServletContext().getContextPath());
     }
 }

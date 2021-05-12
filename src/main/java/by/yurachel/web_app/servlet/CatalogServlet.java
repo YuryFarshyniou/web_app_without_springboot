@@ -3,7 +3,6 @@ package by.yurachel.web_app.servlet;
 import by.yurachel.web_app.entity.Phone;
 import by.yurachel.web_app.repository.PhoneRepository;
 import jakarta.servlet.ServletConfig;
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -18,7 +17,7 @@ import java.util.List;
 @WebServlet(name = "catalog", urlPatterns = "/catalog")
 public class CatalogServlet extends HttpServlet {
 
-    private static final Logger ROOT_LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger(CatalogServlet.class);
     private PhoneRepository pr;
 
     @Override
@@ -32,8 +31,8 @@ public class CatalogServlet extends HttpServlet {
         if (!phones.isEmpty()) {
             request.setAttribute("phones", phones);
         }
-        ROOT_LOGGER.debug("Phone count: {} ", phones.size());
-        ROOT_LOGGER.info("Products retrieved successfully");
+        LOGGER.debug("Phone count: {} ", phones.size());
+        LOGGER.info("Products retrieved successfully");
         request.getRequestDispatcher("WEB-INF/catalog.jsp").forward(request, response);
 
     }
