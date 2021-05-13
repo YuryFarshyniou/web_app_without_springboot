@@ -51,6 +51,12 @@ public class Phone implements Serializable {
         this.processor = processor;
     }
 
+    public Phone(String name, double price, String processor) {
+        this.name = name;
+        this.price = price;
+        this.processor = processor;
+    }
+
     public Phone() {
     }
 

@@ -41,7 +41,7 @@
                             Action
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="change">Edit Phone</a></li>
+                            <li><a class="dropdown-item" href="change">Update Phone</a></li>
                             <li><a class="dropdown-item" href="addPhone">Add new phone</a></li>
                         </ul>
                     </li>
@@ -72,16 +72,13 @@
                         <td>${phone.price}</td>
                         <td>${phone.processor}</td>
                         <td>
-                            <form action="remove" method="post">
+                            <form action="remove"  method="post">
                                 <input type="hidden" value="${phone.id}" name="id">
                                 <input type="submit" name="remove" value="Remove"/>
                             </form>
                         </td>
-
-
                     </tr>
                 </c:forEach>
-
                 </tbody>
             </table>
         </div>

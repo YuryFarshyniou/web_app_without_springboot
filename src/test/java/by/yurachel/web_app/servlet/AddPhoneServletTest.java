@@ -1,18 +1,17 @@
 package by.yurachel.web_app.servlet;
 
 import by.yurachel.web_app.HttpInit;
+import by.yurachel.web_app.dao.DAOProvider;
+import by.yurachel.web_app.dao.impl.PhoneListDAO;
 import by.yurachel.web_app.entity.Phone;
-import by.yurachel.web_app.repository.PhoneRepository;
-
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.*;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 
 import java.io.IOException;
 
-import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 
 class AddPhoneServletTest extends HttpInit {
@@ -21,19 +20,19 @@ class AddPhoneServletTest extends HttpInit {
     private AddPhoneServlet addPhoneServlet;
 
     @Mock
-    private PhoneRepository phoneRepository;
-
+    private DAOProvider phoneProvider;
+    @Mock
+    private PhoneListDAO phoneListDAO;
 
     @Test
     void testDoPost() throws IOException {
-        when(phoneRepository.maxPhoneID()).thenReturn(5L);
         when(request.getParameter("name")).thenReturn("anyString()");
         when(request.getParameter("price")).thenReturn("2");
         when(request.getParameter("processor")).thenReturn("snap");
-        doNothing().when(phoneRepository).addPhone(any(Phone.class));
+        when(phoneListDAO.addEntity(any(Phone.class))).thenReturn(true);
         addPhoneServlet.doPost(request, response);
-        verify(phoneRepository).addPhone(any(Phone.class));
-
+        verify(phoneListDAO).addEntity(any(Phone.class));
+        verify(response).sendRedirect(anyString());
     }
 
     @Test
@@ -41,12 +40,22 @@ class AddPhoneServletTest extends HttpInit {
         when(request.getParameter("name")).thenReturn(null);
         when(request.getParameter("price")).thenReturn("2");
         when(request.getParameter("processor")).thenReturn("snap");
-        when(phoneRepository.maxPhoneID()).thenReturn(5L);
         IllegalArgumentException illegalArgumentException =
-                assertThrows(IllegalArgumentException.class, () -> addPhoneServlet.doPost(request, response));
-
+                assertThrows(IllegalArgumentException.class,
+                        () -> addPhoneServlet.doPost(request, response));
         assertNotNull(illegalArgumentException);
         verifyNoInteractions(response);
         assertEquals("Name of the phone can't be null.", illegalArgumentException.getMessage());
+    }
+
+    @Test
+    void testDoPostWhenIsSuccessEqualsFalse() throws IOException {
+        when(request.getParameter("name")).thenReturn("anyString()");
+        when(request.getParameter("price")).thenReturn("2");
+        when(request.getParameter("processor")).thenReturn("snap");
+        when(phoneListDAO.addEntity(any(Phone.class))).thenReturn(false);
+        addPhoneServlet.doPost(request, response);
+        verify(phoneListDAO).addEntity(any(Phone.class));
+        verify(response).sendRedirect(anyString());
     }
 }
