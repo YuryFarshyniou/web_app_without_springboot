@@ -9,8 +9,16 @@ public class Phone implements Serializable {
     private String name;
     private double price;
     private String processor;
+    private String img;
 
     private static final long serialVersionUID = 6295618226040646585L;
+
+    public Phone(String name, double price, String processor, String img) {
+        this.name = name;
+        this.price = price;
+        this.processor = processor;
+        this.img = img;
+    }
 
     public String getName() {
         return name;
@@ -44,6 +52,18 @@ public class Phone implements Serializable {
         this.id = id;
     }
 
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
     public Phone(long id, String name, double price, String processor) {
         this.id = id;
         this.name = name;
@@ -57,6 +77,14 @@ public class Phone implements Serializable {
         this.processor = processor;
     }
 
+    public Phone(long id, String name, double price, String processor, String img) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.processor = processor;
+        this.img = img;
+    }
+
     public Phone() {
     }
 
@@ -65,12 +93,14 @@ public class Phone implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Phone phone = (Phone) o;
-        return id == phone.id && Double.compare(phone.price, price) == 0 && name.equals(phone.name) && processor.equals(phone.processor);
+        return id == phone.id && Double.compare(phone.price, price) == 0
+                && Objects.equals(name, phone.name) && Objects.equals(processor, phone.processor)
+                && Objects.equals(img, phone.img);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, price, processor);
+        return Objects.hash(id, name, price, processor, img);
     }
 
     @Override

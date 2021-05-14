@@ -19,8 +19,8 @@ public class PhoneListDAO extends AbstractDAO<Phone> {
             "DELETE FROM phones WHERE id = ?";
 
     public static final String ADD_NEW_PHONE_TO_PHONES =
-            "INSERT INTO phones(name, price, processor)" +
-                    "VALUES(?, ?, ?) ";
+            "INSERT INTO phones(name, price, processor,img)" +
+                    "VALUES(?, ?, ?,?) ";
 
     public static final String UPDATE_PHONE =
             "UPDATE phones SET name=?, price=?, processor=?" +
@@ -40,7 +40,8 @@ public class PhoneListDAO extends AbstractDAO<Phone> {
                 String name = rs.getString(2);
                 double price = rs.getDouble(3);
                 String processor = rs.getString(4);
-                Phone phone = new Phone(id, name, price, processor);
+                String img = rs.getString(5);
+                Phone phone = new Phone(id, name, price, processor, img);
                 phones.add(phone);
 
             }
@@ -91,10 +92,12 @@ public class PhoneListDAO extends AbstractDAO<Phone> {
             statement.setString(1, object.getName());
             statement.setDouble(2, object.getPrice());
             statement.setString(3, object.getProcessor());
+            statement.setString(4, object.getImg());
             statement.executeUpdate();
             return true;
         } catch (SQLException e) {
-            LOGGER.error("Insert operation wasn't successfully: {}; {}", e, e.getMessage());
+            LOGGER.error("Insert operation wasn't successfully: {}; {}",
+                    e, e.getMessage());
         }
 
         return false;

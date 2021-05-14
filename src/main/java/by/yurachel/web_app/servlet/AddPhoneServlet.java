@@ -36,7 +36,8 @@ public class AddPhoneServlet extends HttpServlet {
         }
         double price = Double.parseDouble(req.getParameter("price"));
         String processor = req.getParameter("processor");
-        Phone pe = new Phone(name, price, processor);
+        String img = req.getParameter("image");
+        Phone pe = new Phone(name, price, processor, img);
         boolean isSuccess = phoneListDAO.addEntity(pe);
         if (isSuccess) {
             LOGGER.info("New phone {} was added", pe);

@@ -259,3 +259,8 @@ input[type=text]::placeholder {
 #icon {
     width:60%;
 }
+
+section{
+    padding-top: 100px;
+    padding-bottom: 100px;
+}

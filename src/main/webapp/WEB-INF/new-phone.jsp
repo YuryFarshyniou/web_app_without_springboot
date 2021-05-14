@@ -29,7 +29,11 @@
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Processor</label>
-                    <input name="processor" type="text" class="form-control" id="exampleInput" placeholder="Processor">
+                    <input name="processor" type="text" class="form-control" id="processorInput" placeholder="Processor">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Image</label>
+                    <input name="image" type="text" class="form-control" id="imageInput" placeholder="Image">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

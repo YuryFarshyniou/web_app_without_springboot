@@ -13,11 +13,12 @@
     <title>Products</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
 </head>
 <body>
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
+        <div class="container-xxl">
             <a class="navbar-brand" href="home">MobileStore</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -46,6 +47,10 @@
                         </ul>
                     </li>
                 </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search phone" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
             </div>
         </div>
     </nav>
@@ -56,23 +61,24 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>#</th>
                     <th>Name</th>
                     <th>Price</th>
                     <th>Processor</th>
-                    <th>Remove</th>
+                    <th></th>
+                    <th></th>
                 </tr>
 
                 </thead>
                 <tbody>
                 <c:forEach var="phone" items="${phones}" varStatus="status">
                     <tr>
-                        <td>${status.index +1}</td>
                         <td>${phone.name}</td>
                         <td>${phone.price}</td>
                         <td>${phone.processor}</td>
+                        <td class="image"><img src=${phone.img} width="400"
+                                               height="300" alt="Image"/></td>
                         <td>
-                            <form action="remove"  method="post">
+                            <form action="remove" method="post">
                                 <input type="hidden" value="${phone.id}" name="id">
                                 <input type="submit" name="remove" value="Remove"/>
                             </form>
