@@ -5,7 +5,6 @@ import by.yurachel.web_app.dao.DAOProvider;
 import by.yurachel.web_app.dao.impl.PhoneListDAO;
 import by.yurachel.web_app.entity.Phone;
 import jakarta.servlet.ServletException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -15,7 +14,6 @@ import java.io.IOException;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 class ChangeServletTest extends HttpInit {
 
@@ -39,9 +37,9 @@ class ChangeServletTest extends HttpInit {
         when(request.getParameter("name")).thenReturn("someName");
         when(request.getParameter("price")).thenReturn("50");
         when(request.getParameter("processor")).thenReturn("exynos");
-        when(phoneListDAO.updateByName(anyString(), any(Phone.class))).thenReturn(true);
+        when(phoneListDAO.update(anyString(), any(Phone.class))).thenReturn(true);
         changeServlet.doPost(request, response);
-        verify(phoneListDAO).updateByName(anyString(), any(Phone.class));
+        verify(phoneListDAO).update(anyString(), any(Phone.class));
         verify(response).sendRedirect(anyString());
     }
 
@@ -59,9 +57,9 @@ class ChangeServletTest extends HttpInit {
         when(request.getParameter("name")).thenReturn("someName");
         when(request.getParameter("price")).thenReturn("50");
         when(request.getParameter("processor")).thenReturn("exynos");
-        when(phoneListDAO.updateByName(anyString(), any(Phone.class))).thenReturn(false);
+        when(phoneListDAO.update(anyString(), any(Phone.class))).thenReturn(false);
         changeServlet.doPost(request, response);
-        verify(phoneListDAO).updateByName(anyString(), any(Phone.class));
+        verify(phoneListDAO).update(anyString(), any(Phone.class));
         verify(response).sendRedirect(anyString());
     }
 }

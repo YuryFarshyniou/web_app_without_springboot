@@ -11,7 +11,7 @@
     <title>HomePage</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/home.css" />
+    <link rel="stylesheet" href="css/home.css"/>
 </head>
 <body>
 <header>
@@ -75,46 +75,59 @@
                 <div class="carousel-item active">
                     <div class="row justify-content-between">
                         <div class="col">
-                            <div class="card w-100" >
+                            <div class="card w-100">
                                 <img src="https://i.expansys.net/img/b/330002/samsung-galaxy-s21-ultra-5g-dual-sim-sm-g9980.jpg"
                                      class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">Samsung Galaxy s21 Ultra</h5>
                                     <p class="card-text">Exunos 2100, 108 Mp, Diagonal 6.8 </p>
-                                    <a href="#" class="btn btn-primary">More Info</a>
+                                    <form action="phonePage" method="get">
+                                        <input type="hidden" value="Samsung Galaxy s21 Ultra" name="name">
+                                        <input class="btn btn-primary" type="submit" name="remove" value="More Info"/>
+                                    </form>
+
                                 </div>
                             </div>
                         </div>
                         <div class="col">
-                            <div class="card w-100" >
+                            <div class="card w-100">
                                 <img src="https://i.gadgets360cdn.com/products/large/mi-11-ultra-db-800x800-1617265287.jpg"
                                      class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">Xiaomi Mi 11 Ultra</h5>
                                     <p class="card-text">Snapdragon 888, 5000mAh</p>
-                                    <a href="#" class="btn btn-primary">More Info</a>
+                                    <form action="phonePage" method="get">
+                                        <input type="hidden" value="Xiaomi Mi 11 Ultra" name="name">
+                                        <input class="btn btn-primary" type="submit" name="remove" value="More Info"/>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                         <div class="col">
-                            <div class="card w-100" >
+                            <div class="card w-100">
                                 <img src="https://cdn.alloallo.media/catalog/product/samsung/galaxy-s/galaxy-s20-ultra/galaxy-s20-ultra-cosmic-gray.jpg"
                                      class="card-img-top" alt="...">
                                 <div class="card-body">
-                                    <h5 class="card-title">Galaxy s20 Ultra</h5>
+                                    <h5 class="card-title">Samsung Galaxy s20 Ultra</h5>
                                     <p class="card-text">Exynos 990, RAM 12 gb</p>
-                                    <a href="#" class="btn btn-primary">More Info</a>
+                                    <form action="phonePage" method="get">
+                                        <input type="hidden" value="Samsung Galaxy s20 Ultra" name="name">
+                                        <input class="btn btn-primary" type="submit" name="remove" value="More Info"/>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                         <div class="col">
-                            <div class="card w-100" >
+                            <div class="card w-100">
                                 <img src="https://www.powerplanetonline.com/cdnassets/xiaomi_mi_11_lite_05_rosa_ad_l.jpg"
                                      class="card-img-top" alt="...">
                                 <div class="card-body">
-                                    <h5 class="card-title">Mi 11 Lite</h5>
+                                    <h5 class="card-title">Xiaomi Mi 11 lite</h5>
                                     <p class="card-text">Snapdragon 732G, RAM 6Gb</p>
-                                    <a href="#" class="btn btn-primary">More Info</a>
+                                    <form action="phonePage" method="get">
+                                        <input type="hidden" value="Xiaomi Mi 11 lite" name="name">
+                                        <input class="btn btn-primary" type="submit" name="remove" value="More Info"/>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -123,62 +136,74 @@
                 <div class="carousel-item">
                     <div class="row justify-content-between">
                         <div class="col">
-                            <div class="card w-100" >
+                            <div class="card w-100">
                                 <img src="https://cdn.alzashop.com/ImgW.ashx?fd=f16&cd=REAM018b2"
                                      class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">Realme 8 Pro</h5>
                                     <p class="card-text">Snapdragon 720G, RAM 8Gb</p>
-                                    <a href="#" class="btn btn-primary">More Info</a>
+                                    <form action="phonePage" method="get">
+                                        <input type="hidden" value="Realme 8 Pro" name="name">
+                                        <input class="btn btn-primary" type="submit" name="remove" value="More Info"/>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                         <div class="col">
-                            <div class="card w-100" >
+                            <div class="card w-100">
                                 <img src="https://img.router-switch.com/media/customoptions/129/2/4/iphone-12-pro-max-blue.jpg"
                                      class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">Iphone 12 Pro Max</h5>
                                     <p class="card-text">Apple A14 Bionic.</p>
-                                    <a href="#" class="btn btn-primary">More Info</a>
+                                    <form action="phonePage" method="get">
+                                        <input type="hidden" value="Iphone 12 Pro Max" name="name">
+                                        <input class="btn btn-primary" type="submit" name="remove" value="More Info"/>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                         <div class="col">
-                            <div class="card w-100" >
+                            <div class="card w-100">
                                 <img src="https://www.gizmochina.com/wp-content/uploads/2021/03/Xiaomi-Poco-X3-Pro.jpg"
                                      class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">Poco X3 Pro</h5>
                                     <p class="card-text">Snapdragon 860.</p>
-                                    <a href="#" class="btn btn-primary">More Info</a>
+                                    <form action="phonePage" method="get">
+                                        <input type="hidden" value="Poco X3 Pro" name="name">
+                                        <input class="btn btn-primary" type="submit" name="remove" value="More Info"/>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                         <div class="col">
-                            <div class="card w-100" >
+                            <div class="card w-100">
                                 <img src="https://www.giztop.com/media/catalog/product/cache/dc206057cdd42d7e34b9d36e347785ca/x/i/xiaomi_mi_10_ultra_silver_4.jpg"
                                      class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">Xiaomi Mi 10 Ultra</h5>
                                     <p class="card-text">Snapdragon 865.</p>
-                                    <a href="#" class="btn btn-primary">More Info</a>
+                                    <form action="phonePage" method="get">
+                                        <input type="hidden" value="Xiaomi Mi 10 Ultra" name="name">
+                                        <input class="btn btn-primary" type="submit" name="remove" value="More Info"/>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-                        data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-                        data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
 
         </div>
     </div>

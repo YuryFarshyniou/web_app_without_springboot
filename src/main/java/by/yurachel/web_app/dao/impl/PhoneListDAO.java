@@ -25,6 +25,8 @@ public class PhoneListDAO extends AbstractDAO<Phone> {
     public static final String UPDATE_PHONE =
             "UPDATE phones SET name=?, price=?, processor=?" +
                     "WHERE name = (?)";
+    public static final String SELECT_PHONE_FROM_PHONES =
+            "SELECT * FROM phones where name = (?)";
 
     public static final Logger LOGGER = LogManager.getLogger(PhoneListDAO.class);
     private final ConnectorDB connector = ConnectorDB.getInstance();
@@ -52,10 +54,28 @@ public class PhoneListDAO extends AbstractDAO<Phone> {
     }
 
     @Override
-    public Phone findEntityById(long id) {
+    public Phone findEntity(long id) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    public Phone findEntity(String phoneName) {
+        Phone phone = new Phone();
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_PHONE_FROM_PHONES)) {
+            statement.setString(1, phoneName);
+            ResultSet rs = statement.executeQuery();
+            rs.next();
+            phone.setId(rs.getLong(1));
+            phone.setName(rs.getString(2));
+            phone.setPrice(rs.getDouble(3));
+            phone.setProcessor(rs.getString(4));
+            phone.setImg(rs.getString(5));
+
+        } catch (SQLException e) {
+            LOGGER.error("Operation findEntity with phone name: {} was failed", phoneName);
+        }
+        return phone;
+    }
 
     @Override
     public boolean remove(long id) {
@@ -71,7 +91,7 @@ public class PhoneListDAO extends AbstractDAO<Phone> {
     }
 
     @Override
-    public boolean updateByName(String oldName, Phone phone) {
+    public boolean update(String oldName, Phone phone) {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_PHONE)) {
             statement.setString(1, phone.getName());
             statement.setDouble(2, phone.getPrice());

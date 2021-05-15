@@ -33,7 +33,7 @@ public class ChangeServlet extends HttpServlet {
             Phone newPhone = new Phone(req.getParameter("name"),
                     Double.parseDouble(req.getParameter("price")),
                     req.getParameter("processor"));
-            boolean isSuccess = phoneListDAO.updateByName(oldPhoneName, newPhone);
+            boolean isSuccess = phoneListDAO.update(oldPhoneName, newPhone);
             if (isSuccess) {
                 LOGGER.info("Old phone {} was changed by new phone {}", oldPhoneName, newPhone);
             } else {

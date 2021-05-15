@@ -10,7 +10,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Products</title>
+    <title>PhonesCatalog</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
@@ -78,7 +78,7 @@
                         <td class="image"><img src=${phone.img} width="400"
                                                height="300" alt="Image"/></td>
                         <td>
-                            <form action="remove" method="post">
+                            <form action="remove"  method="post">
                                 <input type="hidden" value="${phone.id}" name="id">
                                 <input type="submit" name="remove" value="Remove"/>
                             </form>
