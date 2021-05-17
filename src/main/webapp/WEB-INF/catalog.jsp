@@ -13,8 +13,8 @@
     <title>PhonesCatalog</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Lobster'>
     <link rel="stylesheet" href="css/catalog.css">
-    <link rel="stylesheet"  href='https://fonts.googleapis.com/css?family=Lobster'>
 
 </head>
 <body>
@@ -73,16 +73,25 @@
                 <tbody>
                 <c:forEach var="phone" items="${phones}" varStatus="status">
                     <tr>
-                        <td class="name_column" >${phone.name}</td>
+                        <td class="name_column">${phone.name}</td>
                         <td class="image"><img src=${phone.img} width="400"
                                                height="300" alt="Image"/></td>
                         <td class="price_column">${phone.price}</td>
 
                         <td>
-                            <form action="remove" method="post">
+                            <form action="remove" method="post" name="removePhone">
+                                <input type="hidden" value="remove_phone" name="command">
                                 <input type="hidden" value="${phone.id}" name="id">
                                 <input class="btn btn-dark" type="submit" name="remove" value="Remove"/>
                             </form>
+                        </td>
+                        <td>
+                            <form action="phonePage" method="get" name="moreInfo">
+                                <input type="hidden" value="more_info" name="command">
+                                <input type="hidden" value="${phone.name}" name="name">
+                                <input class="btn btn-dark" type="submit" name="info" value="More info"/>
+                            </form>
+
                         </td>
                     </tr>
                 </c:forEach>

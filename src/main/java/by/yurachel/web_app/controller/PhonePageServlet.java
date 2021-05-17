@@ -1,4 +1,5 @@
-package by.yurachel.web_app.servlet;
+package by.yurachel.web_app.controller;
+
 
 import by.yurachel.web_app.dao.AbstractDAO;
 import by.yurachel.web_app.dao.DAOProvider;
@@ -12,25 +13,20 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet(name = "catalog", urlPatterns = "/catalog")
-public class CatalogServlet extends HttpServlet {
-
+@WebServlet(name = "phonePage", urlPatterns = "/phonePage")
+public class PhonePageServlet extends HttpServlet {
     private DAOProvider phoneProvider = DAOProvider.getInstance();
     private static final Logger LOGGER = LogManager.getLogger(CatalogServlet.class);
     private AbstractDAO<Phone> phoneListDAO = phoneProvider.getAbstractDAO();
 
-
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        List<Phone> phones = phoneListDAO.findAll();
-        if (!phones.isEmpty()) {
-            request.setAttribute("phones", phones);
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Phone phone = phoneListDAO.findEntity(req.getParameter("name"));
+        if (!(phone == null)) {
+            req.setAttribute("phone", phone);
+            LOGGER.info("Attribute {} was successfully added", phone);
         }
-        LOGGER.info("Phone count: {} ", phones.size());
-        LOGGER.info("Products retrieved successfully");
-        request.getRequestDispatcher("WEB-INF/catalog.jsp").forward(request, response);
-
+        req.getRequestDispatcher("WEB-INF/phonePage.jsp").forward(req, resp);
     }
-
 }

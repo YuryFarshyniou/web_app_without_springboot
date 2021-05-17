@@ -1,4 +1,4 @@
-package by.yurachel.web_app.servlet;
+package by.yurachel.web_app.controller;
 
 import by.yurachel.web_app.dao.AbstractDAO;
 import by.yurachel.web_app.dao.DAOProvider;
@@ -28,7 +28,6 @@ public class AddPhoneServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
 
         String name = req.getParameter("name");
         if (name == null) {

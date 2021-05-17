@@ -1,19 +1,14 @@
-package by.yurachel.web_app.servlet;
+package by.yurachel.web_app.controller;
 
 import by.yurachel.web_app.HttpInit;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import org.junit.jupiter.api.BeforeEach;
+import jakarta.servlet.annotation.WebServlet;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
+@WebServlet()
 class AdminServletTest extends HttpInit {
 
     @InjectMocks

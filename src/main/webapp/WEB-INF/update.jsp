@@ -16,7 +16,7 @@
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-8">
-            <form action="change" method="post">
+            <form action="change" method="post" name="updatePhone">
                 <div class="mb-3">
                     <label for="exampleInputEmail" class="form-label">Phone name to change</label>
                     <input name="oldName" type="text" class="form-control" id="exampleInputEmail"
@@ -29,11 +29,13 @@
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">New Price</label>
-                    <input name="price" type="text" class="form-control" id="exampleInputPassword1" placeholder="New Price">
+                    <input name="price" type="text" class="form-control" id="exampleInputPassword1"
+                           placeholder="New Price">
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">New Processor</label>
-                    <input name="processor" type="text" class="form-control" id="exampleInput" placeholder="New Processor">
+                    <input name="processor" type="text" class="form-control" id="exampleInput"
+                           placeholder="New Processor">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

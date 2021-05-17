@@ -1,7 +1,6 @@
-package by.yurachel.web_app.servlet;
+package by.yurachel.web_app.controller;
 
 import by.yurachel.web_app.HttpInit;
-import by.yurachel.web_app.dao.AbstractDAO;
 import by.yurachel.web_app.dao.DAOProvider;
 import by.yurachel.web_app.dao.impl.PhoneListDAO;
 import org.junit.jupiter.api.Test;

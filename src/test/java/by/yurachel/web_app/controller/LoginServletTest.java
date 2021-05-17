@@ -1,4 +1,4 @@
-package by.yurachel.web_app.servlet;
+package by.yurachel.web_app.controller;
 
 import by.yurachel.web_app.HttpInit;
 import jakarta.servlet.ServletException;

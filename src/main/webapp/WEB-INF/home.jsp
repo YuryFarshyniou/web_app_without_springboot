@@ -81,7 +81,8 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Samsung Galaxy s21 Ultra</h5>
                                     <p class="card-text">Exunos 2100, 108 Mp, Diagonal 6.8 </p>
-                                    <form action="phonePage" method="get">
+                                    <form action="phonePage" method="get" name="moreInfo">
+                                        <input type="hidden" value="more_info" name="command">
                                         <input type="hidden" value="Samsung Galaxy s21 Ultra" name="name">
                                         <input class="btn btn-primary" type="submit" name="remove" value="More Info"/>
                                     </form>
@@ -96,7 +97,8 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Xiaomi Mi 11 Ultra</h5>
                                     <p class="card-text">Snapdragon 888, 5000mAh</p>
-                                    <form action="phonePage" method="get">
+                                    <form action="phonePage" method="get" name="moreInfo">
+                                        <input type="hidden" value="more_info" name="command">
                                         <input type="hidden" value="Xiaomi Mi 11 Ultra" name="name">
                                         <input class="btn btn-primary" type="submit" name="remove" value="More Info"/>
                                     </form>
@@ -110,7 +112,8 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Samsung Galaxy s20 Ultra</h5>
                                     <p class="card-text">Exynos 990, RAM 12 gb</p>
-                                    <form action="phonePage" method="get">
+                                    <form action="phonePage" method="get" name="moreInfo">
+                                        <input type="hidden" value="more_info" name="command">
                                         <input type="hidden" value="Samsung Galaxy s20 Ultra" name="name">
                                         <input class="btn btn-primary" type="submit" name="remove" value="More Info"/>
                                     </form>
@@ -124,7 +127,8 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Xiaomi Mi 11 lite</h5>
                                     <p class="card-text">Snapdragon 732G, RAM 6Gb</p>
-                                    <form action="phonePage" method="get">
+                                    <form action="phonePage" method="get" name="moreInfo">
+                                        <input type="hidden" value="more_info" name="command">
                                         <input type="hidden" value="Xiaomi Mi 11 lite" name="name">
                                         <input class="btn btn-primary" type="submit" name="remove" value="More Info"/>
                                     </form>
@@ -142,7 +146,8 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Realme 8 Pro</h5>
                                     <p class="card-text">Snapdragon 720G, RAM 8Gb</p>
-                                    <form action="phonePage" method="get">
+                                    <form action="phonePage" method="get" name="moreInfo">
+                                        <input type="hidden" value="more_info" name="command">
                                         <input type="hidden" value="Realme 8 Pro" name="name">
                                         <input class="btn btn-primary" type="submit" name="remove" value="More Info"/>
                                     </form>
@@ -156,7 +161,8 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Iphone 12 Pro Max</h5>
                                     <p class="card-text">Apple A14 Bionic.</p>
-                                    <form action="phonePage" method="get">
+                                    <form action="phonePage" method="get" name="moreInfo">
+                                        <input type="hidden" value="more_info" name="command">
                                         <input type="hidden" value="Iphone 12 Pro Max" name="name">
                                         <input class="btn btn-primary" type="submit" name="remove" value="More Info"/>
                                     </form>
@@ -170,7 +176,8 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Poco X3 Pro</h5>
                                     <p class="card-text">Snapdragon 860.</p>
-                                    <form action="phonePage" method="get">
+                                    <form action="phonePage" method="get" name="moreInfo">
+                                        <input type="hidden" value="more_info" name="command">
                                         <input type="hidden" value="Poco X3 Pro" name="name">
                                         <input class="btn btn-primary" type="submit" name="remove" value="More Info"/>
                                     </form>
@@ -184,9 +191,10 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Xiaomi Mi 10 Ultra</h5>
                                     <p class="card-text">Snapdragon 865.</p>
-                                    <form action="phonePage" method="get">
+                                    <form action="phonePage" method="get" name="moreInfo">
+                                        <input type="hidden" value="more_info" name="command">
                                         <input type="hidden" value="Xiaomi Mi 10 Ultra" name="name">
-                                        <input class="btn btn-primary" type="submit" name="remove" value="More Info"/>
+                                        <input class="btn btn-primary" type="submit" name="info" value="More Info"/>
                                     </form>
                                 </div>
                             </div>

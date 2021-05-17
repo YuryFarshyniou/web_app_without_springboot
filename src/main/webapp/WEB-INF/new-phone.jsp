@@ -17,7 +17,7 @@
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-8">
-            <form action="addPhone" method="post">
+            <form action="addPhone" method="post" name="addNewPhone">
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Name</label>
                     <input name="name" type="text" class="form-control" id="exampleInputEmail1"
@@ -29,12 +29,14 @@
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Processor</label>
-                    <input name="processor" type="text" class="form-control" id="processorInput" placeholder="Processor">
+                    <input name="processor" type="text" class="form-control" id="processorInput"
+                           placeholder="Processor">
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Image</label>
                     <input name="image" type="text" class="form-control" id="imageInput" placeholder="Image">
                 </div>
+                <input type="hidden" value="add_new_phone" name="command">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>

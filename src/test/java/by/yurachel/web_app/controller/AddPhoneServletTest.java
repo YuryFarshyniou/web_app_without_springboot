@@ -1,4 +1,4 @@
-package by.yurachel.web_app.servlet;
+package by.yurachel.web_app.controller;
 
 import by.yurachel.web_app.HttpInit;
 import by.yurachel.web_app.dao.DAOProvider;
@@ -12,6 +12,7 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+
 
 
 class AddPhoneServletTest extends HttpInit {
