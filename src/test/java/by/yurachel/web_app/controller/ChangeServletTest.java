@@ -18,7 +18,7 @@ import static org.mockito.Mockito.*;
 class ChangeServletTest extends HttpInit {
 
     @InjectMocks
-    private ChangeServlet changeServlet;
+    private UpdateServlet changeServlet;
 
     @Mock
     DAOProvider phoneProvider;

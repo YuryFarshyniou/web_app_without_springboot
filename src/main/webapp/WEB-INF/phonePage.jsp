@@ -12,6 +12,7 @@
     <title>PhonePage</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/phonePage.css">
 
 </head>
 <body>
@@ -47,7 +48,8 @@
                     </li>
                 </ul>
                 <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search phone" aria-label="Search">
+                    <input class="form-control me-2" type="search" placeholder="Search phone" aria-label="Search"
+                           name="name">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
@@ -58,8 +60,8 @@
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-8">
-            <td class="image"><img src=${phone.img} width="600"
-                                   height="500" alt="Image"/></td>
+            <div class="image"><img src=${phone.img} width="600"
+                                   height="500" alt="Image"/></div>
             <table class="table table-striped">
                 <thead>
                 <tr>

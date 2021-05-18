@@ -14,11 +14,11 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = "/change")
-public class ChangeServlet extends HttpServlet {
+public class UpdateServlet extends HttpServlet {
 
     private DAOProvider phoneProvider = DAOProvider.getInstance();
     private AbstractDAO<Phone> phoneListDAO = phoneProvider.getAbstractDAO();
-    private static final Logger LOGGER = LogManager.getLogger(ChangeServlet.class);
+    private static final Logger LOGGER = LogManager.getLogger(UpdateServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

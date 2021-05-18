@@ -46,7 +46,8 @@
                     </li>
                 </ul>
                 <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search phone" aria-label="Search">
+                    <input class="form-control me-2" type="search" placeholder="Search phone" aria-label="Search"
+                           name="name">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
