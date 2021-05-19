@@ -82,7 +82,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Samsung Galaxy s21 Ultra</h5>
                                     <p class="card-text">Exunos 2100, 108 Mp, Diagonal 6.8 </p>
-                                    <form action="phonePage" method="get" name="moreInfo">
+                                    <form action="controller" method="get" name="moreInfo">
                                         <input type="hidden" value="more_info" name="command">
                                         <input type="hidden" value="Samsung Galaxy s21 Ultra" name="name">
                                         <input class="btn btn-primary" type="submit" name="remove" value="More Info"/>
