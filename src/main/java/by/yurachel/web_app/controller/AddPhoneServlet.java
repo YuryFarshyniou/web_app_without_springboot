@@ -1,7 +1,8 @@
-package by.yurachel.web_app.servlet;
+package by.yurachel.web_app.controller;
 
+import by.yurachel.web_app.dao.AbstractDAO;
+import by.yurachel.web_app.dao.DAOProvider;
 import by.yurachel.web_app.entity.Phone;
-import by.yurachel.web_app.repository.PhoneRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,7 +15,9 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/addPhone")
 public class AddPhoneServlet extends HttpServlet {
-    private PhoneRepository pr = PhoneRepository.getInstance();
+
+    private DAOProvider phoneProvider = DAOProvider.getInstance();
+    private AbstractDAO<Phone> phoneListDAO = phoneProvider.getAbstractDAO();
     public static final Logger LOGGER = LogManager.getLogger(AddPhoneServlet.class);
 
 
@@ -26,16 +29,20 @@ public class AddPhoneServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        pr.addID(pr.maxPhoneID());
-        long id = pr.maxPhoneID();
         String name = req.getParameter("name");
         if (name == null) {
             throw new IllegalArgumentException("Name of the phone can't be null.");
         }
-        Phone pe = new Phone(id, name,
-                Double.parseDouble(req.getParameter("price")), req.getParameter("processor"));
-        pr.addPhone(pe);
-        LOGGER.info("New phone {} was added", pe);
+        double price = Double.parseDouble(req.getParameter("price"));
+        String processor = req.getParameter("processor");
+        String img = req.getParameter("image");
+        Phone pe = new Phone(name, price, processor, img);
+        boolean isSuccess = phoneListDAO.addEntity(pe);
+        if (isSuccess) {
+            LOGGER.info("New phone {} was added", pe);
+        } else {
+            LOGGER.info("Phone {} wasn't added", pe);
+        }
         resp.sendRedirect("catalog");
     }
 }

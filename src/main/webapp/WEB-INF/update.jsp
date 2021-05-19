@@ -6,16 +6,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>PhonesCatalog</title>
+    <title>Change current product</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Lobster'>
     <link rel="stylesheet" href="css/catalog.css">
-
 </head>
 <body>
 <header>
@@ -30,13 +26,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="admin">admin page</a>
+                        <a class="nav-link" href="admin">Admin page</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="login">login</a>
+                        <a class="nav-link" href="login">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="catalog">catalog</a>
+                        <a class="nav-link" href="catalog">Catalog</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -61,51 +57,36 @@
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-8">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th></th>
-                    <th>Price</th>
-                    <th></th>
-                </tr>
-
-                </thead>
-                <tbody>
-                <c:forEach var="phone" items="${phones}" varStatus="status">
-                    <tr>
-                        <td class="name_column">${phone.name}</td>
-                        <td class="image"><img src=${phone.img} width="400"
-                                               height="300" alt="Image"/></td>
-                        <td class="price_column">${phone.price}</td>
-
-                        <td>
-                            <form action="remove" method="post" name="removePhone">
-                                <input type="hidden" value="remove_phone" name="command">
-                                <input type="hidden" value="${phone.id}" name="id">
-                                <input class="btn btn-dark" type="submit" name="remove" value="Remove"/>
-                            </form>
-                        </td>
-                        <td>
-                            <form action="phonePage" method="get" name="moreInfo">
-                                <input type="hidden" value="more_info" name="command">
-                                <input type="hidden" value="${phone.name}" name="name">
-                                <input class="btn btn-dark" type="submit" name="info" value="More info"/>
-                            </form>
-
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
+            <form action="change" method="post" name="updatePhone">
+                <div class="mb-3">
+                    <label for="exampleInputEmail" class="form-label">Phone name to change</label>
+                    <input name="oldName" type="text" class="form-control" id="exampleInputEmail"
+                           aria-describedby="emailHelp" placeholder="Phone name to change">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">New Name</label>
+                    <input name="name" type="text" class="form-control" id="exampleInputEmail1"
+                           aria-describedby="emailHelp" placeholder="New Name">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">New Price</label>
+                    <input name="price" type="text" class="form-control" id="exampleInputPassword1"
+                           placeholder="New Price">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">New Processor</label>
+                    <input name="processor" type="text" class="form-control" id="exampleInput"
+                           placeholder="New Processor">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
         </div>
+
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
-            crossorigin="anonymous"></script>
-
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
+
 </body>
 </html>
-

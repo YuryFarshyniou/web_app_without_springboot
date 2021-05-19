@@ -36,7 +36,7 @@ public class ConnectorDB {
         }
     }
 
-    public Connection getConnection() throws SQLException {
+    public Connection getConnection() {
         return connection;
     }
 }

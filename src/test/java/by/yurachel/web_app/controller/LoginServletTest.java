@@ -1,20 +1,12 @@
-package by.yurachel.web_app.servlet;
+package by.yurachel.web_app.controller;
 
 import by.yurachel.web_app.HttpInit;
-import by.yurachel.web_app.repository.PhoneRepository;
-import jakarta.servlet.ServletConfig;
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 

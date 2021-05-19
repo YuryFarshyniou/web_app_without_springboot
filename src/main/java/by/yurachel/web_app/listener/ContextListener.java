@@ -6,6 +6,9 @@ import jakarta.servlet.annotation.WebListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/* Обрабатывает события создания/удаления контекста сервлета.
+ * Событие инициализации контекста сервлета производится только один раз за его жизненный цикл.*/
+
 @WebListener
 public class ContextListener implements ServletContextListener {
     public static final Logger LOGGER = LogManager.getLogger(ContextListener.class);

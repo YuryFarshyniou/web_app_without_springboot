@@ -1,20 +1,18 @@
 <%--
   Created by IntelliJ IDEA.
   User: USER1
-  Date: 4/26/2021
-  Time: 12:29 PM
+  Date: 5/15/2021
+  Time: 1:26 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>PhonesCatalog</title>
+    <title>PhonePage</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Lobster'>
-    <link rel="stylesheet" href="css/catalog.css">
+    <link rel="stylesheet" href="css/phonePage.css">
 
 </head>
 <body>
@@ -30,13 +28,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="admin">admin page</a>
+                        <a class="nav-link" href="admin">Admin page</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="login">login</a>
+                        <a class="nav-link" href="login">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="catalog">catalog</a>
+                        <a class="nav-link" href="catalog">Catalog</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -49,63 +47,51 @@
                         </ul>
                     </li>
                 </ul>
-                <form class="d-flex" action="phonePage">
+                <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search phone" aria-label="Search"
                            name="name">
+                    <input type="hidden" value="more_info" name="command">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
         </div>
     </nav>
 </header>
+
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-8">
+            <div class="image"><img src=${phone.img} width="600"
+                                   height="500" alt="Image"/></div>
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Name</th>
                     <th></th>
-                    <th>Price</th>
                     <th></th>
                 </tr>
-
                 </thead>
                 <tbody>
-                <c:forEach var="phone" items="${phones}" varStatus="status">
-                    <tr>
-                        <td class="name_column">${phone.name}</td>
-                        <td class="image"><img src=${phone.img} width="400"
-                                               height="300" alt="Image"/></td>
-                        <td class="price_column">${phone.price}</td>
+                <tr>
+                    <td>Name</td>
+                    <td>${phone.name}</td>
 
-                        <td>
-                            <form action="remove" method="post" name="removePhone">
-                                <input type="hidden" value="remove_phone" name="command">
-                                <input type="hidden" value="${phone.id}" name="id">
-                                <input class="btn btn-dark" type="submit" name="remove" value="Remove"/>
-                            </form>
-                        </td>
-                        <td>
-                            <form action="phonePage" method="get" name="moreInfo">
-                                <input type="hidden" value="more_info" name="command">
-                                <input type="hidden" value="${phone.name}" name="name">
-                                <input class="btn btn-dark" type="submit" name="info" value="More info"/>
-                            </form>
+                </tr>
+                <tr>
+                    <td>Processor</td>
+                    <td>${phone.processor}</td>
+                </tr>
+                <tr>
+                    <td>Price</td>
+                    <td>${phone.price}</td>
 
-                        </td>
-                    </tr>
-                </c:forEach>
+                </tr>
                 </tbody>
             </table>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
-            crossorigin="anonymous"></script>
-
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
 </body>
 </html>
-

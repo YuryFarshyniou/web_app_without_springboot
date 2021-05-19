@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/* Обрабатывает события создания/удаления/модификации атрибутов контекста сервлета. */
 
 @WebListener
 public class ContextAttributeListener implements ServletContextAttributeListener {
