@@ -81,14 +81,12 @@
 
                         <td>
                             <form action="remove" method="post" name="removePhone">
-                                <input type="hidden" value="remove_phone" name="command">
                                 <input type="hidden" value="${phone.id}" name="id">
                                 <input class="btn btn-dark" type="submit" name="remove" value="Remove"/>
                             </form>
                         </td>
                         <td>
                             <form action="phonePage" method="get" name="moreInfo">
-                                <input type="hidden" value="more_info" name="command">
                                 <input type="hidden" value="${phone.name}" name="name">
                                 <input class="btn btn-dark" type="submit" name="info" value="More info"/>
                             </form>

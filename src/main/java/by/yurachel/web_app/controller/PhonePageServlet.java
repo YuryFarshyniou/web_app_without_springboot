@@ -1,10 +1,8 @@
 package by.yurachel.web_app.controller;
 
-
 import by.yurachel.web_app.dao.AbstractDAO;
 import by.yurachel.web_app.dao.DAOProvider;
 import by.yurachel.web_app.entity.Phone;
-import by.yurachel.web_app.manager.ConfigurationManager;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
-@WebServlet(name = "phonePage", urlPatterns = "/phonePage")
+@WebServlet( name = "phonePage", urlPatterns = "/phonePage")
 public class PhonePageServlet extends HttpServlet {
     private DAOProvider phoneProvider = DAOProvider.getInstance();
     private static final Logger LOGGER = LogManager.getLogger(CatalogServlet.class);
@@ -33,3 +31,4 @@ public class PhonePageServlet extends HttpServlet {
 
     }
 }
+

@@ -78,7 +78,6 @@
                     <label for="exampleInputPassword1" class="form-label">Image</label>
                     <input name="image" type="text" class="form-control" id="imageInput" placeholder="Image">
                 </div>
-                <input type="hidden" value="add_new_phone" name="command">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
