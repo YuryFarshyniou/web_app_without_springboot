@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
-@WebServlet( name = "phonePage", urlPatterns = "/phonePage")
+@WebServlet(name = "phonePage", urlPatterns = "/phonePage")
 public class PhonePageServlet extends HttpServlet {
     private DAOProvider phoneProvider = DAOProvider.getInstance();
     private static final Logger LOGGER = LogManager.getLogger(CatalogServlet.class);
@@ -21,14 +21,16 @@ public class PhonePageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Phone phone = phoneListDAO.findEntity(req.getParameter("name"));
+        String phoneName = req.getParameter("name");
+        Phone phone = phoneListDAO.findEntity(phoneName);
 
         if (!(phone == null)) {
             req.setAttribute("phone", phone);
             LOGGER.info("Attribute {} was successfully added", phone);
+        } else {
+            LOGGER.error("Attribute for phoneName {} wasn't added", phoneName);
         }
         req.getRequestDispatcher("WEB-INF/phonePage.jsp").forward(req, resp);
-
     }
 }
 

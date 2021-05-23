@@ -4,6 +4,7 @@ import by.yurachel.web_app.HttpInit;
 import by.yurachel.web_app.dao.DAOProvider;
 import by.yurachel.web_app.dao.impl.PhoneListDAO;
 import by.yurachel.web_app.entity.Phone;
+import jakarta.servlet.ServletException;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -25,6 +26,10 @@ class AddPhoneServletTest extends HttpInit {
     @Mock
     private PhoneListDAO phoneListDAO;
 
+    @Test
+    void doGet() throws ServletException, IOException {
+        addPhoneServlet.doGet(request,response);
+    }
     @Test
     void testDoPost() throws IOException {
         when(request.getParameter("name")).thenReturn("anyString()");
