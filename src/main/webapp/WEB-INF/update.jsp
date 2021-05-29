@@ -78,6 +78,11 @@
                     <input name="processor" type="text" class="form-control" id="exampleInput"
                            placeholder="New Processor">
                 </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Image</label>
+                    <input name="img" type="text" class="form-control" id="imgInput"
+                           placeholder="New Image">
+                </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>

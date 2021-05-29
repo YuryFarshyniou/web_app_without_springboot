@@ -2,8 +2,8 @@ package by.yurachel.web_app.controller;
 
 import by.yurachel.web_app.HttpInit;
 import by.yurachel.web_app.PhoneArgumentsProvider;
-import by.yurachel.web_app.dao.DAOProvider;
-import by.yurachel.web_app.dao.impl.PhoneListDAO;
+import by.yurachel.web_app.dao.jdbc.DAOProvider;
+import by.yurachel.web_app.dao.jdbc.impl.JDBCPhoneListDAO;
 import by.yurachel.web_app.entity.Phone;
 import jakarta.servlet.ServletException;
 import org.junit.jupiter.api.Test;
@@ -31,7 +31,7 @@ class CatalogServletTest extends HttpInit {
     private DAOProvider phoneProvider;
 
     @Mock
-    private PhoneListDAO phoneListDAO;
+    private JDBCPhoneListDAO JDBCPhoneListDAO;
 
 
     /* В теле метода не должно быть строчек инициализации,
@@ -40,10 +40,10 @@ class CatalogServletTest extends HttpInit {
     @ParameterizedTest
     @ArgumentsSource(PhoneArgumentsProvider.class)
     void doGetTest(List<Phone> phones) throws ServletException, IOException {
-        when(phoneListDAO.findAll()).thenReturn(phones);
+        when(JDBCPhoneListDAO.findAll()).thenReturn(phones);
 
         catalogServlet.doGet(request, response);
-        verify(phoneListDAO).findAll(); // Проверяем,что у мока вызвался метод.
+        verify(JDBCPhoneListDAO).findAll(); // Проверяем,что у мока вызвался метод.
         verify(request).setAttribute("phones", phones);
         verify(request).getRequestDispatcher("WEB-INF/catalog.jsp");
         verify(requestDispatcher).forward(request, response);
@@ -51,9 +51,9 @@ class CatalogServletTest extends HttpInit {
 
     @Test
     void doGetNoProductsReturned() throws ServletException, IOException {
-        when(phoneListDAO.findAll()).thenReturn(Collections.emptyList());
+        when(JDBCPhoneListDAO.findAll()).thenReturn(Collections.emptyList());
         catalogServlet.doGet(request, response);
-        verify(phoneListDAO).findAll();
+        verify(JDBCPhoneListDAO).findAll();
         verify(request, times(0)).setAttribute(anyString(), anyList());
         verify(request).getRequestDispatcher("WEB-INF/catalog.jsp");
         verify(requestDispatcher).forward(request, response);
@@ -62,13 +62,13 @@ class CatalogServletTest extends HttpInit {
 
     @Test
     void doGetThrowException() throws ServletException, IOException {
-        when(phoneListDAO.findAll()).thenThrow(new IllegalArgumentException("some message"));
+        when(JDBCPhoneListDAO.findAll()).thenThrow(new IllegalArgumentException("some message"));
         IllegalArgumentException illegalArgumentException =
                 assertThrows(IllegalArgumentException.class, () ->
                         catalogServlet.doGet(request, response));
         assertNotNull(illegalArgumentException);
         assertEquals("some message", illegalArgumentException.getMessage());
-        verify(phoneListDAO).findAll();
+        verify(JDBCPhoneListDAO).findAll();
         verifyNoInteractions(request);
         verifyNoInteractions(requestDispatcher);
     }

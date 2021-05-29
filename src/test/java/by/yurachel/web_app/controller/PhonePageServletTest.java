@@ -1,9 +1,8 @@
 package by.yurachel.web_app.controller;
 
 import by.yurachel.web_app.HttpInit;
-import by.yurachel.web_app.dao.AbstractDAO;
-import by.yurachel.web_app.dao.DAOProvider;
-import by.yurachel.web_app.dao.impl.PhoneListDAO;
+import by.yurachel.web_app.dao.IDao;
+import by.yurachel.web_app.dao.jdbc.DAOProvider;
 import by.yurachel.web_app.entity.Phone;
 import jakarta.servlet.ServletException;
 import org.junit.jupiter.api.Test;
@@ -24,25 +23,25 @@ class PhonePageServletTest extends HttpInit {
     @Mock
     private DAOProvider phoneProvider;
     @Mock
-    private AbstractDAO<Phone> abstractDAO;
+    private IDao<Phone> IDao;
     @Mock
     Phone phone;
 
     @Test
     void doGet() throws ServletException, IOException {
         when(request.getParameter("name")).thenReturn("phone");
-        when(abstractDAO.findEntity("phone")).thenReturn(phone);
+        when(IDao.findByName("phone")).thenReturn(phone);
         doNothing().when(request).setAttribute(eq("phone"), eq(phone));
         phonePageServlet.doGet(request, response);
         verify(request).getParameter(anyString());
-        verify(abstractDAO).findEntity(anyString());
+        verify(IDao).findByName(anyString());
         verify(request).setAttribute(anyString(), any(Phone.class));
     }
 
     @Test
     void doGetWhenPhoneNameIsNull() {
         when(request.getParameter("name")).thenReturn(null);
-        when(abstractDAO.findEntity(null))
+        when(IDao.findByName(null))
                 .thenThrow(new IllegalArgumentException("Can't find such phone"));
         IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
                 phonePageServlet.doGet(request, response));
@@ -54,21 +53,21 @@ class PhonePageServletTest extends HttpInit {
     @Test
     void doGetWhenPhoneIsNull() throws ServletException, IOException {
         when(request.getParameter("name")).thenReturn("anyPhone");
-        when(abstractDAO.findEntity("anyPhone")).thenReturn(null);
+        when(IDao.findByName("anyPhone")).thenReturn(null);
         phonePageServlet.doGet(request, response);
         verify(request).getParameter(anyString());
-        verify(abstractDAO).findEntity(anyString());
+        verify(IDao).findByName(anyString());
     }
 
     @Test
     void doGetWhenSetAttributeIsFailed() throws ServletException, IOException {
         when(request.getParameter("name")).thenReturn("anyPhone");
-        when(abstractDAO.findEntity("anyPhone")).thenReturn(phone);
+        when(IDao.findByName("anyPhone")).thenReturn(phone);
         doThrow(new IllegalArgumentException("exception"))
                 .when(request).setAttribute("anyPhone", phone);
         phonePageServlet.doGet(request, response);
         verify(request).getParameter(anyString());
-        verify(abstractDAO).findEntity(anyString());
+        verify(IDao).findByName(anyString());
     }
 
 }

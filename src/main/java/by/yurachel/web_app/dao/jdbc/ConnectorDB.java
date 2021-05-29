@@ -1,4 +1,4 @@
-package by.yurachel.web_app.dao;
+package by.yurachel.web_app.dao.jdbc;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

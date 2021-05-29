@@ -1,7 +1,8 @@
 package by.yurachel.web_app.controller;
 
-import by.yurachel.web_app.dao.AbstractDAO;
-import by.yurachel.web_app.dao.DAOProvider;
+import by.yurachel.web_app.dao.IDao;
+import by.yurachel.web_app.dao.hibernate.DAOProvider;
+import by.yurachel.web_app.dao.hibernate.impl.HibPhoneListDao;
 import by.yurachel.web_app.entity.Phone;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,15 +15,17 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/remove")
 public class RemoveServlet extends HttpServlet {
+    //    private DAOProvider phoneProvider = DAOProvider.getInstance();
+//    private IDao<Phone> phoneListDAO = phoneProvider.getAbstractDAO();
     private static final Logger LOGGER = LogManager.getLogger(RemoveServlet.class);
     private DAOProvider phoneProvider = DAOProvider.getInstance();
-    private AbstractDAO<Phone> phoneListDAO = phoneProvider.getAbstractDAO();
+    private IDao<Phone> phoneListHib = phoneProvider.getIPhoneDAO();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
             long phoneIdToRemove = Long.parseLong(req.getParameter("id"));
-            boolean isSuccess = phoneListDAO.remove(phoneIdToRemove);
+            boolean isSuccess = phoneListHib.remove(phoneIdToRemove);
             if (isSuccess) {
                 LOGGER.info("Phone with id {} was successfully removed", phoneIdToRemove);
             } else {

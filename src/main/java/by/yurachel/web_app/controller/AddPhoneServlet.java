@@ -1,7 +1,8 @@
 package by.yurachel.web_app.controller;
 
-import by.yurachel.web_app.dao.AbstractDAO;
-import by.yurachel.web_app.dao.DAOProvider;
+import by.yurachel.web_app.dao.IDao;
+import by.yurachel.web_app.dao.hibernate.DAOProvider;
+import by.yurachel.web_app.dao.hibernate.impl.HibPhoneListDao;
 import by.yurachel.web_app.entity.Phone;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,8 +17,10 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/addPhone")
 public class AddPhoneServlet extends HttpServlet {
 
+    //    private DAOProvider phoneProvider = DAOProvider.getInstance();
+//    private IDao<Phone> phoneListDAO = phoneProvider.getAbstractDAO();
     private DAOProvider phoneProvider = DAOProvider.getInstance();
-    private AbstractDAO<Phone> phoneListDAO = phoneProvider.getAbstractDAO();
+    private IDao<Phone> phoneListHib = phoneProvider.getIPhoneDAO();
     public static final Logger LOGGER = LogManager.getLogger(AddPhoneServlet.class);
 
 
@@ -37,7 +40,7 @@ public class AddPhoneServlet extends HttpServlet {
         String processor = req.getParameter("processor");
         String img = req.getParameter("image");
         Phone pe = new Phone(name, price, processor, img);
-        boolean isSuccess = phoneListDAO.addEntity(pe);
+        boolean isSuccess = phoneListHib.create(pe);
         if (isSuccess) {
             LOGGER.info("New phone {} was added", pe);
         } else {

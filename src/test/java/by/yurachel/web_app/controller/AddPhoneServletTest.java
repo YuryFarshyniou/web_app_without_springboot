@@ -1,8 +1,8 @@
 package by.yurachel.web_app.controller;
 
 import by.yurachel.web_app.HttpInit;
-import by.yurachel.web_app.dao.DAOProvider;
-import by.yurachel.web_app.dao.impl.PhoneListDAO;
+import by.yurachel.web_app.dao.jdbc.DAOProvider;
+import by.yurachel.web_app.dao.jdbc.impl.JDBCPhoneListDAO;
 import by.yurachel.web_app.entity.Phone;
 import jakarta.servlet.ServletException;
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,7 @@ class AddPhoneServletTest extends HttpInit {
     @Mock
     private DAOProvider phoneProvider;
     @Mock
-    private PhoneListDAO phoneListDAO;
+    private JDBCPhoneListDAO JDBCPhoneListDAO;
 
     @Test
     void doGet() throws ServletException, IOException {
@@ -35,9 +35,9 @@ class AddPhoneServletTest extends HttpInit {
         when(request.getParameter("name")).thenReturn("anyString()");
         when(request.getParameter("price")).thenReturn("2");
         when(request.getParameter("processor")).thenReturn("snap");
-        when(phoneListDAO.addEntity(any(Phone.class))).thenReturn(true);
+        when(JDBCPhoneListDAO.create(any(Phone.class))).thenReturn(true);
         addPhoneServlet.doPost(request, response);
-        verify(phoneListDAO).addEntity(any(Phone.class));
+        verify(JDBCPhoneListDAO).create(any(Phone.class));
         verify(response).sendRedirect(anyString());
     }
 
@@ -59,9 +59,9 @@ class AddPhoneServletTest extends HttpInit {
         when(request.getParameter("name")).thenReturn("anyString()");
         when(request.getParameter("price")).thenReturn("2");
         when(request.getParameter("processor")).thenReturn("snap");
-        when(phoneListDAO.addEntity(any(Phone.class))).thenReturn(false);
+        when(JDBCPhoneListDAO.create(any(Phone.class))).thenReturn(false);
         addPhoneServlet.doPost(request, response);
-        verify(phoneListDAO).addEntity(any(Phone.class));
+        verify(JDBCPhoneListDAO).create(any(Phone.class));
         verify(response).sendRedirect(anyString());
     }
 }

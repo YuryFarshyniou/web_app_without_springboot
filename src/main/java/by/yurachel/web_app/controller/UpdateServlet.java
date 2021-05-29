@@ -1,7 +1,8 @@
 package by.yurachel.web_app.controller;
 
-import by.yurachel.web_app.dao.AbstractDAO;
-import by.yurachel.web_app.dao.DAOProvider;
+import by.yurachel.web_app.dao.IDao;
+import by.yurachel.web_app.dao.hibernate.DAOProvider;
+import by.yurachel.web_app.dao.hibernate.impl.HibPhoneListDao;
 import by.yurachel.web_app.entity.Phone;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,8 +17,11 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/change")
 public class UpdateServlet extends HttpServlet {
 
+    //    private DAOProvider phoneProvider = DAOProvider.getInstance();
+//    private IDao<Phone> phoneListDAO = phoneProvider.getIPhoneDAO();
     private DAOProvider phoneProvider = DAOProvider.getInstance();
-    private AbstractDAO<Phone> phoneListDAO = phoneProvider.getAbstractDAO();
+    private IDao<Phone> phoneListHib = phoneProvider.getIPhoneDAO();
+
     private static final Logger LOGGER = LogManager.getLogger(UpdateServlet.class);
 
     @Override
@@ -32,8 +36,9 @@ public class UpdateServlet extends HttpServlet {
 
             Phone newPhone = new Phone(req.getParameter("name"),
                     Double.parseDouble(req.getParameter("price")),
-                    req.getParameter("processor"));
-            boolean isSuccess = phoneListDAO.update(oldPhoneName, newPhone);
+                    req.getParameter("processor"),
+                    req.getParameter("img"));
+            boolean isSuccess = phoneListHib.update(oldPhoneName, newPhone);
             if (isSuccess) {
                 LOGGER.info("Old phone {} was changed by new phone {}", oldPhoneName, newPhone);
             } else {

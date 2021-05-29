@@ -1,7 +1,7 @@
-package by.yurachel.web_app.dao.impl;
+package by.yurachel.web_app.dao.jdbc.impl;
 
-import by.yurachel.web_app.dao.AbstractDAO;
-import by.yurachel.web_app.dao.ConnectorDB;
+import by.yurachel.web_app.dao.IDao;
+import by.yurachel.web_app.dao.jdbc.ConnectorDB;
 import by.yurachel.web_app.entity.Phone;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,7 +10,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PhoneListDAO extends AbstractDAO<Phone> {
+public class JDBCPhoneListDAO implements IDao<Phone> {
 
     public static final String SELECT_ALL_FROM_PHONES =
             "SELECT * FROM phones";
@@ -28,7 +28,7 @@ public class PhoneListDAO extends AbstractDAO<Phone> {
     public static final String SELECT_PHONE_FROM_PHONES =
             "SELECT * FROM phones where name = (?)";
 
-    public static final Logger LOGGER = LogManager.getLogger(PhoneListDAO.class);
+    public static final Logger LOGGER = LogManager.getLogger(JDBCPhoneListDAO.class);
     private final ConnectorDB connector = ConnectorDB.getInstance();
     private final Connection connection = connector.getConnection();
 
@@ -54,12 +54,12 @@ public class PhoneListDAO extends AbstractDAO<Phone> {
     }
 
     @Override
-    public Phone findEntity(long id) {
+    public Phone findById(long id) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Phone findEntity(String phoneName) {
+    public Phone findByName(String phoneName) {
         Phone phone = new Phone();
         try (PreparedStatement statement = connection.prepareStatement(SELECT_PHONE_FROM_PHONES)) {
             statement.setString(1, phoneName);
@@ -107,7 +107,7 @@ public class PhoneListDAO extends AbstractDAO<Phone> {
     }
 
     @Override
-    public boolean addEntity(Phone object) {
+    public boolean create(Phone object) {
         try (PreparedStatement statement = connection.prepareStatement(ADD_NEW_PHONE_TO_PHONES)) {
             statement.setString(1, object.getName());
             statement.setDouble(2, object.getPrice());
