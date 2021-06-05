@@ -1,7 +1,7 @@
 package by.yurachel.web_app.controller;
 
 import by.yurachel.web_app.HttpInit;
-import by.yurachel.web_app.dao.jdbc.DAOProvider;
+import by.yurachel.web_app.dao.IDao;
 import by.yurachel.web_app.dao.jdbc.impl.JDBCPhoneListDAO;
 import by.yurachel.web_app.entity.Phone;
 import jakarta.servlet.ServletException;
@@ -21,10 +21,7 @@ class ChangeServletTest extends HttpInit {
     private UpdateServlet changeServlet;
 
     @Mock
-    DAOProvider phoneProvider;
-
-    @Mock
-    JDBCPhoneListDAO JDBCPhoneListDAO;
+    private IDao<Phone>daoProvider;
 
     @Test
     void doGet() throws ServletException, IOException {
@@ -37,9 +34,9 @@ class ChangeServletTest extends HttpInit {
         when(request.getParameter("name")).thenReturn("someName");
         when(request.getParameter("price")).thenReturn("50");
         when(request.getParameter("processor")).thenReturn("exynos");
-        when(JDBCPhoneListDAO.update(anyString(), any(Phone.class))).thenReturn(true);
+        when(daoProvider.update(anyString(), any(Phone.class))).thenReturn(true);
         changeServlet.doPost(request, response);
-        verify(JDBCPhoneListDAO).update(anyString(), any(Phone.class));
+        verify(daoProvider).update(anyString(), any(Phone.class));
         verify(response).sendRedirect(anyString());
     }
 
@@ -47,7 +44,7 @@ class ChangeServletTest extends HttpInit {
     void testPostWhenOldPhoneNameEqualsNull() throws IOException {
         when(request.getParameter("oldName")).thenReturn(null);
         changeServlet.doPost(request, response);
-        verifyNoInteractions(JDBCPhoneListDAO);
+        verifyNoInteractions(daoProvider);
         verifyNoInteractions(response);
     }
 
@@ -57,9 +54,9 @@ class ChangeServletTest extends HttpInit {
         when(request.getParameter("name")).thenReturn("someName");
         when(request.getParameter("price")).thenReturn("50");
         when(request.getParameter("processor")).thenReturn("exynos");
-        when(JDBCPhoneListDAO.update(anyString(), any(Phone.class))).thenReturn(false);
+        when(daoProvider.update(anyString(), any(Phone.class))).thenReturn(false);
         changeServlet.doPost(request, response);
-        verify(JDBCPhoneListDAO).update(anyString(), any(Phone.class));
+        verify(daoProvider).update(anyString(), any(Phone.class));
         verify(response).sendRedirect(anyString());
     }
 }

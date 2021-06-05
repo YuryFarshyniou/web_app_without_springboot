@@ -13,10 +13,15 @@
     <properties>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
-        <junit.version>5.7.1</junit.version>
+        <jakarta.servlet-api.version>5.0.0</jakarta.servlet-api.version>
+        <jakarta.servlet.jsp.jstl>2.0.0</jakarta.servlet.jsp.jstl>
         <log4j.version>2.14.1</log4j.version>
+        <junit.version>5.7.1</junit.version>
         <mockito.version>3.9.0</mockito.version>
         <mysql.version>8.0.24</mysql.version>
+        <hibernate.version>5.4.32.Final</hibernate.version>
+        <ehcache.version>3.9.4</ehcache.version>
+        <hibernate.entitymanager.version>5.4.31.Final</hibernate.entitymanager.version>
 
     </properties>
 
@@ -25,14 +30,14 @@
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
-            <version>5.0.0</version>
+            <version>${jakarta.servlet-api.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.glassfish.web</groupId>
             <artifactId>jakarta.servlet.jsp.jstl</artifactId>
-            <version>2.0.0</version>
+            <version>${jakarta.servlet.jsp.jstl}</version>
         </dependency>
 
         <dependency>
@@ -54,6 +59,7 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
@@ -75,26 +81,35 @@
             <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.4.32.Final</version>
+            <version>${hibernate.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-ehcache</artifactId>
-            <version>5.4.32.Final</version>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.entitymanager.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.ehcache</groupId>
             <artifactId>ehcache</artifactId>
-            <version>3.9.4</version>
+            <version>${ehcache.version}</version>
         </dependency>
 
 

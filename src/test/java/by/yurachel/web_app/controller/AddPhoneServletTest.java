@@ -1,7 +1,7 @@
 package by.yurachel.web_app.controller;
 
 import by.yurachel.web_app.HttpInit;
-import by.yurachel.web_app.dao.jdbc.DAOProvider;
+import by.yurachel.web_app.dao.IDao;
 import by.yurachel.web_app.dao.jdbc.impl.JDBCPhoneListDAO;
 import by.yurachel.web_app.entity.Phone;
 import jakarta.servlet.ServletException;
@@ -22,9 +22,7 @@ class AddPhoneServletTest extends HttpInit {
     private AddPhoneServlet addPhoneServlet;
 
     @Mock
-    private DAOProvider phoneProvider;
-    @Mock
-    private JDBCPhoneListDAO JDBCPhoneListDAO;
+    private IDao<Phone> daoProvider;
 
     @Test
     void doGet() throws ServletException, IOException {
@@ -35,9 +33,9 @@ class AddPhoneServletTest extends HttpInit {
         when(request.getParameter("name")).thenReturn("anyString()");
         when(request.getParameter("price")).thenReturn("2");
         when(request.getParameter("processor")).thenReturn("snap");
-        when(JDBCPhoneListDAO.create(any(Phone.class))).thenReturn(true);
+        when(daoProvider.create(any(Phone.class))).thenReturn(true);
         addPhoneServlet.doPost(request, response);
-        verify(JDBCPhoneListDAO).create(any(Phone.class));
+        verify(daoProvider).create(any(Phone.class));
         verify(response).sendRedirect(anyString());
     }
 
@@ -59,9 +57,9 @@ class AddPhoneServletTest extends HttpInit {
         when(request.getParameter("name")).thenReturn("anyString()");
         when(request.getParameter("price")).thenReturn("2");
         when(request.getParameter("processor")).thenReturn("snap");
-        when(JDBCPhoneListDAO.create(any(Phone.class))).thenReturn(false);
+        when(daoProvider.create(any(Phone.class))).thenReturn(false);
         addPhoneServlet.doPost(request, response);
-        verify(JDBCPhoneListDAO).create(any(Phone.class));
+        verify(daoProvider).create(any(Phone.class));
         verify(response).sendRedirect(anyString());
     }
 }

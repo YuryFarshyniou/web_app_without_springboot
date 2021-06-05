@@ -37,16 +37,15 @@ public class HibPhoneListDao implements IDao<Phone> {
     public boolean remove(long id) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        try {
-            Phone phone = session.load(Phone.class, id);
-            session.delete(phone);
-            session.getTransaction().commit();
-            session.close();
-            return true;
-        } catch (Exception e) {
-            LOGGER.error("Remove operation wasn't success: {}", e.getMessage());
+
+        Phone phone = session.get(Phone.class, id);
+        if (phone == null) {
+            return false;
         }
-        return false;
+        session.delete(phone);
+        session.getTransaction().commit();
+        session.close();
+        return true;
     }
 
     @Override

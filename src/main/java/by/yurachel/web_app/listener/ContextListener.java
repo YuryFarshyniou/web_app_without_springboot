@@ -1,5 +1,6 @@
 package by.yurachel.web_app.listener;
 
+import by.yurachel.web_app.dao.DAOProviderCommon;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
@@ -15,11 +16,14 @@ public class ContextListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            LOGGER.error("Exception was caught {} {}", e.getMessage(), e);
-        }
+        String db = sce.getServletContext().getInitParameter("db_approach");
+        DAOProviderCommon.init(db);
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//            System.out.println("Without errors");
+//        } catch (ClassNotFoundException e) {
+//            LOGGER.error("Exception was caught {} {}", e.getMessage(), e);
+//        }
         LOGGER.info("Initialized {} ", sce.getServletContext().getContextPath());
 
     }

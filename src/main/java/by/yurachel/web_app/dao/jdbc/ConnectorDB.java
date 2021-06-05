@@ -29,10 +29,15 @@ public class ConnectorDB {
         prop.put("autoReconnect", "true");
         prop.put("characterEncoding", "UTF-8");
         prop.put("useUnicode", "true");
+
         try {
+            Class.forName("com.mysql.jdbc.Driver");
             this.connection = DriverManager.getConnection(url, prop);
+            LOGGER.info("Connection established successfully");
         } catch (SQLException e) {
-            LOGGER.error("Can't get connection with DB.");
+            LOGGER.error("Can't get connection with DB. {}",e.getMessage());
+        } catch (ClassNotFoundException e) {
+            LOGGER.error("Exception was caught {} {}", e.getMessage(), e);
         }
     }
 

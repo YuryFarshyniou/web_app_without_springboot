@@ -1,8 +1,9 @@
 package by.yurachel.web_app.controller;
 
 import by.yurachel.web_app.HttpInit;
-import by.yurachel.web_app.dao.jdbc.DAOProvider;
+import by.yurachel.web_app.dao.IDao;
 import by.yurachel.web_app.dao.jdbc.impl.JDBCPhoneListDAO;
+import by.yurachel.web_app.entity.Phone;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,18 +22,15 @@ class RemoveServletTest extends HttpInit {
     private RemoveServlet removeServlet;
 
     @Mock
-    DAOProvider phoneProvider;
-
-    @Mock
-    private JDBCPhoneListDAO JDBCPhoneListDAO;
+    IDao<Phone> daoProvider;
 
 
     @Test
     void doPost() throws IOException {
         when(request.getParameter("id")).thenReturn("100");
-        when(JDBCPhoneListDAO.remove(anyLong())).thenReturn(true);
+        when(daoProvider.remove(anyLong())).thenReturn(true);
         removeServlet.doPost(request, response);
-        verify(JDBCPhoneListDAO).remove(anyLong());
+        verify(daoProvider).remove(anyLong());
         verify(response).sendRedirect(anyString());
     }
 
@@ -40,7 +38,7 @@ class RemoveServletTest extends HttpInit {
     void testPostWithNullID() throws IOException {
         when(request.getParameter("id")).thenReturn(null);
         removeServlet.doPost(request, response);
-        verifyNoInteractions(JDBCPhoneListDAO);
+        verifyNoInteractions(daoProvider);
     }
 
     @Test
