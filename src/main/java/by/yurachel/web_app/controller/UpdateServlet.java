@@ -18,34 +18,33 @@ public class UpdateServlet extends HttpServlet {
 
     private IDao<Phone> dao = DaoProvider.getInstance().getIPhoneDAO();
     private static final Logger LOGGER = LogManager.getLogger(UpdateServlet.class);
+    private long phoneId;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("WEB-INF/update.jsp").forward(req, resp);
+        phoneId = Long.parseLong(req.getParameter("id"));
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String oldPhoneName = req.getParameter("oldName");
         try {
-
             Phone newPhone = new Phone(req.getParameter("name"),
                     Double.parseDouble(req.getParameter("price")),
                     req.getParameter("processor"),
                     req.getParameter("img"));
-            boolean isSuccess = dao.updateByName(oldPhoneName, newPhone);
+            boolean isSuccess = dao.updateById(phoneId, newPhone);
             if (isSuccess) {
-                LOGGER.info("Old phone {} was changed by new phone {}", oldPhoneName, newPhone);
+                LOGGER.info("Old phone with id {} was changed by new phone {}", phoneId, newPhone);
                 resp.sendRedirect("catalog");
             } else {
-                LOGGER.info("Change entity operation was failed.");
-                String error = "Change entity operation was failed.";
-                req.setAttribute("error", error);
+                LOGGER.info("Update entity operation was failed.");
+                req.setAttribute("error", "Update entity operation was failed.");
                 getServletContext().getRequestDispatcher("/WEB-INF/update.jsp").forward(req, resp);
             }
 
         } catch (NullPointerException | ServletException e) {
-            LOGGER.error("Phone with name: {} wasn't found. {} {}", oldPhoneName
+            LOGGER.error("Phone with id: {} wasn't found. {} {}", phoneId
                     , e.getMessage(), e);
         }
     }

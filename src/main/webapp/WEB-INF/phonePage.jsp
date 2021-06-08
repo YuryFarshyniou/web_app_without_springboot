@@ -42,7 +42,7 @@
                             Action
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="change">Update Phone</a></li>
+
                             <li><a class="dropdown-item" href="addPhone">Add new phone</a></li>
                         </ul>
                     </li>

@@ -41,7 +41,6 @@
                             Action
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="change">Update Phone</a></li>
                             <li><a class="dropdown-item" href="addPhone">Add new phone</a></li>
                         </ul>
                     </li>
@@ -59,11 +58,6 @@
     <div class="row justify-content-md-center">
         <div class="col-8">
             <form action="change" method="post" name="updatePhone">
-                <div class="mb-3">
-                    <label for="exampleInputEmail" class="form-label">Phone name to change</label>
-                    <input name="oldName" type="text" class="form-control" id="exampleInputEmail"
-                           aria-describedby="emailHelp" placeholder="Phone name to change">
-                </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">New Name</label>
                     <input name="name" type="text" class="form-control" id="exampleInputEmail1"

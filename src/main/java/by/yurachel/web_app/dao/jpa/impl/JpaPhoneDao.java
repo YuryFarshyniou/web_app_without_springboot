@@ -44,11 +44,11 @@ public class JpaPhoneDao implements IDao<Phone> {
     }
 
     @Override
-    public boolean updateByName(String name, Phone object) {
+    public boolean updateById(long id, Phone object) {
         entityManager.getTransaction().begin();
         try {
-            Query query = entityManager.createQuery("from Phone where name=:name");
-            query.setParameter("name", name);
+            Query query = entityManager.createQuery("from Phone where id=:id");
+            query.setParameter("id", id);
             Phone phone = (Phone) query.getSingleResult();
             phone.setName(object.getName());
             phone.setPrice(object.getPrice());

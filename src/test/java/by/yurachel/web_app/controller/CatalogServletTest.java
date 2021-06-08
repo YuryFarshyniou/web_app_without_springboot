@@ -27,7 +27,7 @@ class CatalogServletTest extends HttpInit {
 
     // Аналогична конструкции mock(HttpServletRequest.class).
     @Mock
-   private IDao<Phone>daoProvider;
+    private IDao<Phone> daoProvider;
 
 
     /* В теле метода не должно быть строчек инициализации,
@@ -36,9 +36,11 @@ class CatalogServletTest extends HttpInit {
     @ParameterizedTest
     @ArgumentsSource(PhoneArgumentsProvider.class)
     void doGetTest(List<Phone> phones) throws ServletException, IOException {
+        //given
         when(daoProvider.findAll()).thenReturn(phones);
-
+        //when
         catalogServlet.doGet(request, response);
+        //then
         verify(daoProvider).findAll(); // Проверяем,что у мока вызвался метод.
         verify(request).setAttribute("phones", phones);
         verify(request).getRequestDispatcher("WEB-INF/catalog.jsp");
@@ -47,8 +49,11 @@ class CatalogServletTest extends HttpInit {
 
     @Test
     void doGetNoProductsReturned() throws ServletException, IOException {
+        //given
         when(daoProvider.findAll()).thenReturn(Collections.emptyList());
+        //when
         catalogServlet.doGet(request, response);
+        //then
         verify(daoProvider).findAll();
         verify(request, times(0)).setAttribute(anyString(), anyList());
         verify(request).getRequestDispatcher("WEB-INF/catalog.jsp");
@@ -58,10 +63,13 @@ class CatalogServletTest extends HttpInit {
 
     @Test
     void doGetThrowException() throws ServletException, IOException {
+        //given
         when(daoProvider.findAll()).thenThrow(new IllegalArgumentException("some message"));
+        //when
         IllegalArgumentException illegalArgumentException =
                 assertThrows(IllegalArgumentException.class, () ->
                         catalogServlet.doGet(request, response));
+        //then
         assertNotNull(illegalArgumentException);
         assertEquals("some message", illegalArgumentException.getMessage());
         verify(daoProvider).findAll();

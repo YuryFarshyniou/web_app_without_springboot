@@ -29,33 +29,42 @@ class ChangeServletTest extends HttpInit {
 
     @Test
     void doPost() throws IOException {
+        //given
         when(request.getParameter("oldName")).thenReturn("oldName");
         when(request.getParameter("name")).thenReturn("someName");
         when(request.getParameter("price")).thenReturn("50");
         when(request.getParameter("processor")).thenReturn("exynos");
-        when(daoProvider.updateByName(anyString(), any(Phone.class))).thenReturn(true);
+        when(daoProvider.updateById(anyLong(), any(Phone.class))).thenReturn(true);
+        //when
         changeServlet.doPost(request, response);
-        verify(daoProvider).updateByName(anyString(), any(Phone.class));
+        //then
+        verify(daoProvider).updateById(anyLong(), any(Phone.class));
         verify(response).sendRedirect(anyString());
     }
 
     @Test
     void testPostWhenOldPhoneNameEqualsNull() throws IOException {
+        //given
         when(request.getParameter("oldName")).thenReturn(null);
+        //when
         changeServlet.doPost(request, response);
+        //then
         verifyNoInteractions(daoProvider);
         verifyNoInteractions(response);
     }
 
     @Test
     void testPostWhenIsSuccessEqualsFalse() throws IOException {
+        //given
         when(request.getParameter("oldName")).thenReturn("oldName");
         when(request.getParameter("name")).thenReturn("someName");
         when(request.getParameter("price")).thenReturn("50");
         when(request.getParameter("processor")).thenReturn("exynos");
-        when(daoProvider.updateByName(anyString(), any(Phone.class))).thenReturn(false);
+        when(daoProvider.updateById(anyLong(), any(Phone.class))).thenReturn(false);
+        //when
         changeServlet.doPost(request, response);
-        verify(daoProvider).updateByName(anyString(), any(Phone.class));
+        //then
+        verify(daoProvider).updateById(anyLong(), any(Phone.class));
         verify(response).sendRedirect(anyString());
     }
 }

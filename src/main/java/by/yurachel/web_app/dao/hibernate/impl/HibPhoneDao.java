@@ -58,12 +58,12 @@ public class HibPhoneDao implements IDao<Phone> {
     }
 
     @Override
-    public boolean updateByName(String name, Phone object) {
+    public boolean updateById(long id, Phone object) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Query query = session.createQuery("from Phone where name=:name");
-        query.setParameter("name", name);
+        Query query = session.createQuery("from Phone where id=:id");
+        query.setParameter("id", id);
         query.setCacheable(true);
         Phone phone = (Phone) query.uniqueResult();
         if (phone != null) {

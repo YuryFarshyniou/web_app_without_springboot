@@ -23,8 +23,8 @@ public class JdbcPhoneDao implements IDao<Phone> {
                     "VALUES(?, ?, ?,?) ";
 
     public static final String UPDATE_PHONE =
-            "UPDATE phones SET name=?, price=?, processor=?" +
-                    "WHERE name = (?)";
+            "UPDATE phones SET name=?, price=?, processor=?, img=?" +
+                    "WHERE id = (?)";
     public static final String SELECT_PHONE_FROM_PHONES =
             "SELECT * FROM phones where name = (?)";
     public static final String SELECT_PHONE_FROM_PHONES_BY_ID =
@@ -107,12 +107,13 @@ public class JdbcPhoneDao implements IDao<Phone> {
     }
 
     @Override
-    public boolean updateByName(String oldName, Phone phone) {
+    public boolean updateById(long id, Phone phone) {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_PHONE)) {
             statement.setString(1, phone.getName());
             statement.setDouble(2, phone.getPrice());
             statement.setString(3, phone.getProcessor());
-            statement.setString(4, oldName);
+            statement.setString(4, phone.getImg());
+            statement.setLong(5, id);
             statement.executeUpdate();
             return true;
         } catch (SQLException e) {

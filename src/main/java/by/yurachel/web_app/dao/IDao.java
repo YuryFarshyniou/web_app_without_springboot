@@ -11,7 +11,7 @@ public interface IDao<T> {
 
     boolean removeById(long id);
 
-    boolean updateByName(String name, T object);
+    boolean updateById(long id, T object);
 
     boolean create(T object);
 
