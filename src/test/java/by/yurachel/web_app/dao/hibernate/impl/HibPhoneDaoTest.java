@@ -1,17 +1,15 @@
 package by.yurachel.web_app.dao.hibernate.impl;
 
-import by.yurachel.web_app.dao.jpa.EntityManagerCreator;
+import by.yurachel.web_app.dao.jpa.EntityManagerContainer;
 import by.yurachel.web_app.entity.Phone;
 import org.junit.jupiter.api.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class HibPhoneListDaoTest {
+class HibPhoneDaoTest {
     private static final EntityManager entityManager =
-            EntityManagerCreator.getInstance();
+            EntityManagerContainer.getInstance();
 
     @Test
     void create() {

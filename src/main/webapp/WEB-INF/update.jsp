@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: USER1
@@ -84,7 +85,13 @@
                            placeholder="New Image">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
+
             </form>
+
+            <div class="errorMessage">
+                <h1 >${error}</h1>
+            </div>
+
         </div>
 
     </div>

@@ -1,8 +1,7 @@
 package by.yurachel.web_app.controller;
 
-import by.yurachel.web_app.dao.DAOProviderCommon;
+import by.yurachel.web_app.dao.DaoProvider;
 import by.yurachel.web_app.dao.IDao;
-import by.yurachel.web_app.dao.jpa.impl.JPAPhoneListDAO;
 import by.yurachel.web_app.entity.Phone;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,7 +16,7 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/addPhone")
 public class AddPhoneServlet extends HttpServlet {
 
-    private IDao<Phone> daoProvider = DAOProviderCommon.getInstance().getIPhoneDAO();
+    private IDao<Phone> dao = DaoProvider.getInstance().getIPhoneDAO();
     public static final Logger LOGGER = LogManager.getLogger(AddPhoneServlet.class);
 
 
@@ -37,7 +36,7 @@ public class AddPhoneServlet extends HttpServlet {
         String processor = req.getParameter("processor");
         String img = req.getParameter("image");
         Phone pe = new Phone(name, price, processor, img);
-        boolean isSuccess = daoProvider.create(pe);
+        boolean isSuccess = dao.create(pe);
         if (isSuccess) {
             LOGGER.info("New phone {} was added", pe);
         } else {

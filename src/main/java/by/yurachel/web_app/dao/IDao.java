@@ -9,14 +9,13 @@ public interface IDao<T> {
 
     T findById(long id);
 
-    boolean remove(long id);
+    boolean removeById(long id);
 
-    boolean update(String name, T object);
+    boolean updateByName(String name, T object);
 
     boolean create(T object);
 
     Phone findByName(String objectName);
-
 
 
 }

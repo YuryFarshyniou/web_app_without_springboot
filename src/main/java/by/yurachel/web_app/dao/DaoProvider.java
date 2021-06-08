@@ -1,8 +1,8 @@
 package by.yurachel.web_app.dao;
 
-import by.yurachel.web_app.dao.hibernate.impl.HibPhoneListDao;
-import by.yurachel.web_app.dao.jdbc.impl.JDBCPhoneListDAO;
-import by.yurachel.web_app.dao.jpa.impl.JPAPhoneListDAO;
+import by.yurachel.web_app.dao.hibernate.impl.HibPhoneDao;
+import by.yurachel.web_app.dao.jdbc.impl.JdbcPhoneDao;
+import by.yurachel.web_app.dao.jpa.impl.JpaPhoneDao;
 import by.yurachel.web_app.entity.Phone;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,25 +10,26 @@ import org.apache.logging.log4j.Logger;
 import java.util.Locale;
 
 
-public final class DAOProviderCommon {
+public final class DaoProvider {
 
     private static IDao<Phone> IPhoneDAO;
-    private static DAOType type;
-    private static final Logger LOGGER = LogManager.getLogger(DAOProviderCommon.class);
+    private static DaoType type;
+    private static final Logger LOGGER = LogManager.getLogger(DaoProvider.class);
 
     public static void init(String db) {
-        type = DAOType.valueOf(db.toUpperCase(Locale.ROOT));
+        type = DaoType.valueOf(db.toUpperCase(Locale.ROOT));
+
         switch (type) {
             case JPA:
-                IPhoneDAO = new JPAPhoneListDAO();
+                IPhoneDAO = new JpaPhoneDao();
                 LOGGER.info("JPA dao was initialized.");
                 break;
             case JDBC:
-                IPhoneDAO = new JDBCPhoneListDAO();
+                IPhoneDAO = new JdbcPhoneDao();
                 LOGGER.info("JDBC dao was initialized.");
                 break;
             case HIBERNATE:
-                IPhoneDAO = new HibPhoneListDao();
+                IPhoneDAO = new HibPhoneDao();
                 LOGGER.info("Hibernate dao was initialized.");
                 break;
             default:
@@ -37,15 +38,17 @@ public final class DAOProviderCommon {
     }
 
     public static class DAOProviderHolder {
-        public static final DAOProviderCommon INSTANCE = new DAOProviderCommon();
+
+
+        public static final DaoProvider INSTANCE = new DaoProvider();
     }
 
 
-    private DAOProviderCommon() {
+    private DaoProvider() {
 
     }
 
-    public static DAOProviderCommon getInstance() {
+    public static DaoProvider getInstance() {
         return DAOProviderHolder.INSTANCE;
     }
 

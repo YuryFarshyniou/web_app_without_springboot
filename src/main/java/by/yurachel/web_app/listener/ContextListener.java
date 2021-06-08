@@ -1,6 +1,6 @@
 package by.yurachel.web_app.listener;
 
-import by.yurachel.web_app.dao.DAOProviderCommon;
+import by.yurachel.web_app.dao.DaoProvider;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
@@ -17,7 +17,7 @@ public class ContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         String db = sce.getServletContext().getInitParameter("db_approach");
-        DAOProviderCommon.init(db);
+        DaoProvider.init(db);
 //        try {
 //            Class.forName("com.mysql.jdbc.Driver");
 //            System.out.println("Without errors");

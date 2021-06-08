@@ -8,19 +8,19 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class ConnectorDB {
+public class ConnectorDb {
     private Connection connection;
-    public static final Logger LOGGER = LogManager.getLogger(ConnectorDB.class);
+    public static final Logger LOGGER = LogManager.getLogger(ConnectorDb.class);
 
     public static class ConnectorDBHolder {
-        public static final ConnectorDB INSTANCE = new ConnectorDB();
+        public static final ConnectorDb INSTANCE = new ConnectorDb();
     }
 
-    public static ConnectorDB getInstance() {
+    public static ConnectorDb getInstance() {
         return ConnectorDBHolder.INSTANCE;
     }
 
-    private ConnectorDB() {
+    private ConnectorDb() {
 
         String url = "jdbc:mysql://localhost:3306/phone_store";
         Properties prop = new Properties();

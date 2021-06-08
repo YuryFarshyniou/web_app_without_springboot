@@ -1,6 +1,6 @@
 package by.yurachel.web_app.dao.jpa;
 
-import by.yurachel.web_app.dao.hibernate.SessionFactoryCreator;
+import by.yurachel.web_app.dao.hibernate.SessionFactoryContainer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -8,16 +8,19 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class EntityManagerCreator {
-    private static final Logger LOGGER = LogManager.getLogger(SessionFactoryCreator.class);
+public class EntityManagerContainer {
+    private static final Logger LOGGER = LogManager.getLogger(SessionFactoryContainer.class);
     private EntityManager entityManager;
 
-    private EntityManagerCreator() {
+    private EntityManagerContainer() {
         final EntityManagerFactory emf = Persistence.createEntityManagerFactory("PhoneDB");
         try {
             entityManager = emf.createEntityManager();
+            LOGGER.info("Entity manager was successfully created");
         } catch (Exception e) {
+            LOGGER.error("Entity manager wasn't successfully created {}", e.getMessage());
             throw new Error("Error in entityManager creating. ", e);
+
         }
     }
 
@@ -26,6 +29,6 @@ public class EntityManagerCreator {
     }
 
     private static class EntityManagerHolder {
-        static EntityManagerCreator instance = new EntityManagerCreator();
+        static EntityManagerContainer instance = new EntityManagerContainer();
     }
 }

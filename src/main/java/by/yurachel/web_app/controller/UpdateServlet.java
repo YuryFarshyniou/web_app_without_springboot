@@ -1,9 +1,7 @@
 package by.yurachel.web_app.controller;
 
-import by.yurachel.web_app.dao.DAOProviderCommon;
+import by.yurachel.web_app.dao.DaoProvider;
 import by.yurachel.web_app.dao.IDao;
-import by.yurachel.web_app.dao.hibernate.impl.HibPhoneListDao;
-import by.yurachel.web_app.dao.jpa.impl.JPAPhoneListDAO;
 import by.yurachel.web_app.entity.Phone;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -18,7 +16,7 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/change")
 public class UpdateServlet extends HttpServlet {
 
-    private IDao<Phone> daoProvider = DAOProviderCommon.getInstance().getIPhoneDAO();
+    private IDao<Phone> dao = DaoProvider.getInstance().getIPhoneDAO();
     private static final Logger LOGGER = LogManager.getLogger(UpdateServlet.class);
 
     @Override
@@ -35,14 +33,18 @@ public class UpdateServlet extends HttpServlet {
                     Double.parseDouble(req.getParameter("price")),
                     req.getParameter("processor"),
                     req.getParameter("img"));
-            boolean isSuccess = daoProvider.update(oldPhoneName, newPhone);
+            boolean isSuccess = dao.updateByName(oldPhoneName, newPhone);
             if (isSuccess) {
                 LOGGER.info("Old phone {} was changed by new phone {}", oldPhoneName, newPhone);
+                resp.sendRedirect("catalog");
             } else {
                 LOGGER.info("Change entity operation was failed.");
+                String error = "Change entity operation was failed.";
+                req.setAttribute("error", error);
+                getServletContext().getRequestDispatcher("/WEB-INF/update.jsp").forward(req, resp);
             }
-            resp.sendRedirect("catalog");
-        } catch (NullPointerException e) {
+
+        } catch (NullPointerException | ServletException e) {
             LOGGER.error("Phone with name: {} wasn't found. {} {}", oldPhoneName
                     , e.getMessage(), e);
         }

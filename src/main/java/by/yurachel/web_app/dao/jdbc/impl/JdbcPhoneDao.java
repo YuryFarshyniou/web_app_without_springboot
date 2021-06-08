@@ -1,7 +1,7 @@
 package by.yurachel.web_app.dao.jdbc.impl;
 
 import by.yurachel.web_app.dao.IDao;
-import by.yurachel.web_app.dao.jdbc.ConnectorDB;
+import by.yurachel.web_app.dao.jdbc.ConnectorDb;
 import by.yurachel.web_app.entity.Phone;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,7 +10,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JDBCPhoneListDAO implements IDao<Phone> {
+public class JdbcPhoneDao implements IDao<Phone> {
 
     public static final String SELECT_ALL_FROM_PHONES =
             "SELECT * FROM phones";
@@ -27,9 +27,11 @@ public class JDBCPhoneListDAO implements IDao<Phone> {
                     "WHERE name = (?)";
     public static final String SELECT_PHONE_FROM_PHONES =
             "SELECT * FROM phones where name = (?)";
+    public static final String SELECT_PHONE_FROM_PHONES_BY_ID =
+            "SELECT * FROM phones where id = (?)";
 
-    public static final Logger LOGGER = LogManager.getLogger(JDBCPhoneListDAO.class);
-    private final ConnectorDB connector = ConnectorDB.getInstance();
+    public static final Logger LOGGER = LogManager.getLogger(JdbcPhoneDao.class);
+    private final ConnectorDb connector = ConnectorDb.getInstance();
     private final Connection connection = connector.getConnection();
 
     @Override
@@ -55,7 +57,21 @@ public class JDBCPhoneListDAO implements IDao<Phone> {
 
     @Override
     public Phone findById(long id) {
-        throw new UnsupportedOperationException();
+        Phone phone = new Phone();
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_PHONE_FROM_PHONES_BY_ID)) {
+            statement.setLong(1, id);
+            ResultSet rs = statement.executeQuery();
+            rs.next();
+            phone.setId(rs.getLong(1));
+            phone.setName(rs.getString(2));
+            phone.setPrice(rs.getDouble(3));
+            phone.setProcessor(rs.getString(4));
+            phone.setImg(rs.getString(5));
+
+        } catch (SQLException e) {
+            LOGGER.error("Operation findEntity with phone id: {} was failed", id);
+        }
+        return phone;
     }
 
     @Override
@@ -78,7 +94,7 @@ public class JDBCPhoneListDAO implements IDao<Phone> {
     }
 
     @Override
-    public boolean remove(long id) {
+    public boolean removeById(long id) {
         try (PreparedStatement statement = connection.prepareStatement(DELETE_FROM_PHONES_WHERE_ID)) {
             statement.setLong(1, id);
             statement.executeUpdate();
@@ -91,7 +107,7 @@ public class JDBCPhoneListDAO implements IDao<Phone> {
     }
 
     @Override
-    public boolean update(String oldName, Phone phone) {
+    public boolean updateByName(String oldName, Phone phone) {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_PHONE)) {
             statement.setString(1, phone.getName());
             statement.setDouble(2, phone.getPrice());

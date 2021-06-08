@@ -1,7 +1,7 @@
 package by.yurachel.web_app.dao.hibernate.impl;
 
 import by.yurachel.web_app.dao.IDao;
-import by.yurachel.web_app.dao.hibernate.SessionFactoryCreator;
+import by.yurachel.web_app.dao.hibernate.SessionFactoryContainer;
 import by.yurachel.web_app.entity.Phone;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,10 +11,10 @@ import org.hibernate.query.Query;
 
 import java.util.List;
 
-public class HibPhoneListDao implements IDao<Phone> {
-    private static final Logger LOGGER = LogManager.getLogger(HibPhoneListDao.class);
+public class HibPhoneDao implements IDao<Phone> {
+    private static final Logger LOGGER = LogManager.getLogger(HibPhoneDao.class);
     private static final SessionFactory sessionFactory =
-            SessionFactoryCreator.getSessionFactory();
+            SessionFactoryContainer.getSessionFactory();
 
     @Override
     public List<Phone> findAll() {
@@ -22,6 +22,7 @@ public class HibPhoneListDao implements IDao<Phone> {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Query query = session.createQuery("from Phone");
+        query.setCacheable(true);
         List<Phone> list = query.list();
         session.getTransaction().commit();
         session.close();
@@ -30,11 +31,19 @@ public class HibPhoneListDao implements IDao<Phone> {
 
     @Override
     public Phone findById(long id) {
-        throw new UnsupportedOperationException("Unsupported operation.");
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Phone where id=:id");
+        query.setCacheable(true);
+        query.setParameter("id", id);
+        Phone phone = (Phone) query.uniqueResult();
+        session.getTransaction().commit();
+        session.close();
+        return phone;
     }
 
     @Override
-    public boolean remove(long id) {
+    public boolean removeById(long id) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
@@ -49,14 +58,15 @@ public class HibPhoneListDao implements IDao<Phone> {
     }
 
     @Override
-    public boolean update(String name, Phone object) {
+    public boolean updateByName(String name, Phone object) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        try {
-            Query query = session.createQuery("from Phone where name=:name");
-            query.setParameter("name", name);
 
-            Phone phone = (Phone) query.uniqueResult();
+        Query query = session.createQuery("from Phone where name=:name");
+        query.setParameter("name", name);
+        query.setCacheable(true);
+        Phone phone = (Phone) query.uniqueResult();
+        if (phone != null) {
             phone.setImg(object.getImg());
             phone.setProcessor(object.getProcessor());
             phone.setName(object.getName());
@@ -66,8 +76,6 @@ public class HibPhoneListDao implements IDao<Phone> {
             session.getTransaction().commit();
             session.close();
             return true;
-        } catch (Exception e) {
-            LOGGER.error("Update operation wasn't success {}", e.getMessage());
         }
         return false;
     }
@@ -93,6 +101,7 @@ public class HibPhoneListDao implements IDao<Phone> {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Query query = session.createQuery("from Phone where name=:name");
+        query.setCacheable(true);
         query.setParameter("name", phoneName);
         Phone phone = (Phone) query.uniqueResult();
         session.getTransaction().commit();

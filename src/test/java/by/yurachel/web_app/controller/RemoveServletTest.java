@@ -2,7 +2,6 @@ package by.yurachel.web_app.controller;
 
 import by.yurachel.web_app.HttpInit;
 import by.yurachel.web_app.dao.IDao;
-import by.yurachel.web_app.dao.jdbc.impl.JDBCPhoneListDAO;
 import by.yurachel.web_app.entity.Phone;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,9 +27,9 @@ class RemoveServletTest extends HttpInit {
     @Test
     void doPost() throws IOException {
         when(request.getParameter("id")).thenReturn("100");
-        when(daoProvider.remove(anyLong())).thenReturn(true);
+        when(daoProvider.removeById(anyLong())).thenReturn(true);
         removeServlet.doPost(request, response);
-        verify(daoProvider).remove(anyLong());
+        verify(daoProvider).removeById(anyLong());
         verify(response).sendRedirect(anyString());
     }
 

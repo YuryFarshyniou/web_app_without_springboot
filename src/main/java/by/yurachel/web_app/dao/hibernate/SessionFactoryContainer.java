@@ -7,11 +7,11 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-public class SessionFactoryCreator {
-    private static final Logger LOGGER = LogManager.getLogger(SessionFactoryCreator.class);
+public class SessionFactoryContainer {
+    private static final Logger LOGGER = LogManager.getLogger(SessionFactoryContainer.class);
     private SessionFactory sessionFactory;
 
-    private SessionFactoryCreator() {
+    private SessionFactoryContainer() {
 
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure()
@@ -30,6 +30,6 @@ public class SessionFactoryCreator {
     }
 
     private static class SessionFactoryHolder {
-        static SessionFactoryCreator instance = new SessionFactoryCreator();
+        static SessionFactoryContainer instance = new SessionFactoryContainer();
     }
 }

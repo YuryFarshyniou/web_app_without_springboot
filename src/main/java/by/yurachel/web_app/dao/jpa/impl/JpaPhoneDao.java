@@ -1,21 +1,19 @@
 package by.yurachel.web_app.dao.jpa.impl;
 
 import by.yurachel.web_app.dao.IDao;
-import by.yurachel.web_app.dao.hibernate.impl.HibPhoneListDao;
-import by.yurachel.web_app.dao.jpa.EntityManagerCreator;
+import by.yurachel.web_app.dao.jpa.EntityManagerContainer;
 import by.yurachel.web_app.entity.Phone;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import java.util.List;
 
-public class JPAPhoneListDAO implements IDao<Phone> {
-    private static final Logger LOGGER = LogManager.getLogger(JPAPhoneListDAO.class);
+public class JpaPhoneDao implements IDao<Phone> {
+    private static final Logger LOGGER = LogManager.getLogger(JpaPhoneDao.class);
     private static final EntityManager entityManager =
-            EntityManagerCreator.getInstance();
+            EntityManagerContainer.getInstance();
 
     @Override
     public List findAll() {
@@ -32,7 +30,7 @@ public class JPAPhoneListDAO implements IDao<Phone> {
     }
 
     @Override
-    public boolean remove(long id) {
+    public boolean removeById(long id) {
         entityManager.getTransaction().begin();
         Query query = entityManager.createQuery("from Phone where id=:id");
         query.setParameter("id", id);
@@ -46,7 +44,7 @@ public class JPAPhoneListDAO implements IDao<Phone> {
     }
 
     @Override
-    public boolean update(String name, Phone object) {
+    public boolean updateByName(String name, Phone object) {
         entityManager.getTransaction().begin();
         try {
             Query query = entityManager.createQuery("from Phone where name=:name");
