@@ -1,8 +1,8 @@
 package by.yurachel.web_app.controller;
 
 import by.yurachel.web_app.HttpInit;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 

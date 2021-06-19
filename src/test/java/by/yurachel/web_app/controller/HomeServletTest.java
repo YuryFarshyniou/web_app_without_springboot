@@ -1,13 +1,11 @@
 package by.yurachel.web_app.controller;
 
 import by.yurachel.web_app.HttpInit;
-import jakarta.servlet.ServletException;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 
+import javax.servlet.ServletException;
 import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class HomeServletTest extends HttpInit {
 

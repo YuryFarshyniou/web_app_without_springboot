@@ -39,7 +39,6 @@ public final class DaoProvider {
 
     public static class DAOProviderHolder {
 
-
         public static final DaoProvider INSTANCE = new DaoProvider();
     }
 

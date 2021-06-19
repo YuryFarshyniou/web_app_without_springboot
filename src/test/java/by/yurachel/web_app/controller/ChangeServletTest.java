@@ -3,7 +3,7 @@ package by.yurachel.web_app.controller;
 import by.yurachel.web_app.HttpInit;
 import by.yurachel.web_app.dao.IDao;
 import by.yurachel.web_app.entity.Phone;
-import jakarta.servlet.ServletException;
+import javax.servlet.ServletException;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -20,7 +20,7 @@ class ChangeServletTest extends HttpInit {
     private UpdateServlet changeServlet;
 
     @Mock
-    private IDao<Phone>daoProvider;
+    private IDao<Phone> daoProvider;
 
     @Test
     void doGet() throws ServletException, IOException {

@@ -1,9 +1,9 @@
 package by.yurachel.web_app.listener;
 
 import by.yurachel.web_app.dao.DaoProvider;
-import jakarta.servlet.ServletContextEvent;
-import jakarta.servlet.ServletContextListener;
-import jakarta.servlet.annotation.WebListener;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,12 +18,6 @@ public class ContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         String db = sce.getServletContext().getInitParameter("db_approach");
         DaoProvider.init(db);
-//        try {
-//            Class.forName("com.mysql.jdbc.Driver");
-//            System.out.println("Without errors");
-//        } catch (ClassNotFoundException e) {
-//            LOGGER.error("Exception was caught {} {}", e.getMessage(), e);
-//        }
         LOGGER.info("Initialized {} ", sce.getServletContext().getContextPath());
 
     }

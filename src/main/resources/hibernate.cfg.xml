@@ -44,7 +44,7 @@
 
         <property name="hibernate.current_session_context_class">thread</property>
 
-                <mapping class="by.yurachel.web_app.entity.Phone"/>
+        <mapping class="by.yurachel.web_app.entity.Phone"/>
     </session-factory>
 
 </hibernate-configuration>

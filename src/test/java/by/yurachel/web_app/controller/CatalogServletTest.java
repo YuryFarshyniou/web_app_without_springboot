@@ -4,19 +4,19 @@ import by.yurachel.web_app.HttpInit;
 import by.yurachel.web_app.PhoneArgumentsProvider;
 import by.yurachel.web_app.dao.IDao;
 import by.yurachel.web_app.entity.Phone;
-import jakarta.servlet.ServletException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
-import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 // Для работы логики,Связанной с мокито.
 
 class CatalogServletTest extends HttpInit {

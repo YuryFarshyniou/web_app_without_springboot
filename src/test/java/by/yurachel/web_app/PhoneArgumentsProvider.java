@@ -13,7 +13,7 @@ public class PhoneArgumentsProvider implements ArgumentsProvider {
     @Override
     public Stream<? extends Arguments> provideArguments(ExtensionContext extensionContext) {
         return Stream.of(
-                Arguments.of( Arrays.asList(
+                Arguments.of(Arrays.asList(
                         new Phone(1, "Xiaomi Mi 11 lite", 500, "Snapdragon 732G"),
                         new Phone(2, "Xiaomi Mi 11 ultra", 1200, "Snapdragon 888"),
                         new Phone(3, "Iphone 12 mini", 1000, "Apple A14 Bionic"),

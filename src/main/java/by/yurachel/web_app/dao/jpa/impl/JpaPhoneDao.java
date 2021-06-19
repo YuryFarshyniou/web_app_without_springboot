@@ -44,6 +44,7 @@ public class JpaPhoneDao implements IDao<Phone> {
     }
 
     @Override
+    
     public boolean updateById(long id, Phone object) {
         entityManager.getTransaction().begin();
         try {
@@ -66,16 +67,15 @@ public class JpaPhoneDao implements IDao<Phone> {
     public boolean create(Phone object) {
         entityManager.getTransaction().begin();
         try {
-
             entityManager.persist(object);
             entityManager.getTransaction().commit();
-
             return true;
         } catch (Exception e) {
             LOGGER.error(("Create operation wasn't success {}"), e.getMessage());
         }
         return false;
     }
+
     @Override
     public Phone findByName(String objectName) {
         entityManager.getTransaction().begin();

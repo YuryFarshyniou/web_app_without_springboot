@@ -61,7 +61,7 @@
     <div class="row justify-content-md-center">
         <div class="col-8">
             <div class="image"><img src=${phone.img} width="600"
-                                   height="500" alt="Image"/></div>
+                                    height="500" alt="Image"/></div>
             <table class="table table-striped">
                 <thead>
                 <tr>
