@@ -1,13 +1,13 @@
 package by.yurachel.web_app.listener;
 
-import jakarta.servlet.ServletRequestEvent;
-import jakarta.servlet.ServletRequestListener;
-import jakarta.servlet.annotation.WebListener;
+import javax.servlet.ServletRequestEvent;
+import javax.servlet.ServletRequestListener;
+import javax.servlet.annotation.WebListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /* Обрабатывает события создания/удаления запроса.
-* */
+ * */
 @WebListener
 public class RequestListener implements ServletRequestListener {
     private static final Logger LOGGER = LogManager.getLogger(RequestListener.class);

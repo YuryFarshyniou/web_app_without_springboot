@@ -1,4 +1,4 @@
-package by.yurachel.web_app.dao;
+package by.yurachel.web_app.dao.jdbc;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -8,19 +8,19 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class ConnectorDB {
+public class ConnectorDb {
     private Connection connection;
-    public static final Logger LOGGER = LogManager.getLogger(ConnectorDB.class);
+    public static final Logger LOGGER = LogManager.getLogger(ConnectorDb.class);
 
     public static class ConnectorDBHolder {
-        public static final ConnectorDB INSTANCE = new ConnectorDB();
+        public static final ConnectorDb INSTANCE = new ConnectorDb();
     }
 
-    public static ConnectorDB getInstance() {
+    public static ConnectorDb getInstance() {
         return ConnectorDBHolder.INSTANCE;
     }
 
-    private ConnectorDB() {
+    private ConnectorDb() {
 
         String url = "jdbc:mysql://localhost:3306/phone_store";
         Properties prop = new Properties();
@@ -29,10 +29,15 @@ public class ConnectorDB {
         prop.put("autoReconnect", "true");
         prop.put("characterEncoding", "UTF-8");
         prop.put("useUnicode", "true");
+
         try {
+            Class.forName("com.mysql.jdbc.Driver");
             this.connection = DriverManager.getConnection(url, prop);
+            LOGGER.info("Connection established successfully");
         } catch (SQLException e) {
-            LOGGER.error("Can't get connection with DB.");
+            LOGGER.error("Can't get connection with DB. {}", e.getMessage());
+        } catch (ClassNotFoundException e) {
+            LOGGER.error("Exception was caught {} {}", e.getMessage(), e);
         }
     }
 

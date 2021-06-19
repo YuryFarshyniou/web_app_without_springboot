@@ -42,15 +42,14 @@
                             Action
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="change">Update Phone</a></li>
+
                             <li><a class="dropdown-item" href="addPhone">Add new phone</a></li>
                         </ul>
                     </li>
                 </ul>
-                <form class="d-flex">
+                <form class="d-flex" action="phonePage">
                     <input class="form-control me-2" type="search" placeholder="Search phone" aria-label="Search"
                            name="name">
-                    <input type="hidden" value="more_info" name="command">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
@@ -62,7 +61,7 @@
     <div class="row justify-content-md-center">
         <div class="col-8">
             <div class="image"><img src=${phone.img} width="600"
-                                   height="500" alt="Image"/></div>
+                                    height="500" alt="Image"/></div>
             <table class="table table-striped">
                 <thead>
                 <tr>

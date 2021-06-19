@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: USER1
@@ -40,7 +41,6 @@
                             Action
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="change">Update Phone</a></li>
                             <li><a class="dropdown-item" href="addPhone">Add new phone</a></li>
                         </ul>
                     </li>
@@ -59,11 +59,6 @@
         <div class="col-8">
             <form action="change" method="post" name="updatePhone">
                 <div class="mb-3">
-                    <label for="exampleInputEmail" class="form-label">Phone name to change</label>
-                    <input name="oldName" type="text" class="form-control" id="exampleInputEmail"
-                           aria-describedby="emailHelp" placeholder="Phone name to change">
-                </div>
-                <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">New Name</label>
                     <input name="name" type="text" class="form-control" id="exampleInputEmail1"
                            aria-describedby="emailHelp" placeholder="New Name">
@@ -78,8 +73,19 @@
                     <input name="processor" type="text" class="form-control" id="exampleInput"
                            placeholder="New Processor">
                 </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Image</label>
+                    <input name="img" type="text" class="form-control" id="imgInput"
+                           placeholder="New Image">
+                </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
+
             </form>
+
+            <div class="errorMessage">
+                <h1>${error}</h1>
+            </div>
+
         </div>
 
     </div>

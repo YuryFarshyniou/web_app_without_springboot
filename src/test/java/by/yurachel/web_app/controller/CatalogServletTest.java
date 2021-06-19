@@ -2,22 +2,21 @@ package by.yurachel.web_app.controller;
 
 import by.yurachel.web_app.HttpInit;
 import by.yurachel.web_app.PhoneArgumentsProvider;
-import by.yurachel.web_app.dao.DAOProvider;
-import by.yurachel.web_app.dao.impl.PhoneListDAO;
+import by.yurachel.web_app.dao.IDao;
 import by.yurachel.web_app.entity.Phone;
-import jakarta.servlet.ServletException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
-import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 // Для работы логики,Связанной с мокито.
 
 class CatalogServletTest extends HttpInit {
@@ -28,10 +27,7 @@ class CatalogServletTest extends HttpInit {
 
     // Аналогична конструкции mock(HttpServletRequest.class).
     @Mock
-    private DAOProvider phoneProvider;
-
-    @Mock
-    private PhoneListDAO phoneListDAO;
+    private IDao<Phone> daoProvider;
 
 
     /* В теле метода не должно быть строчек инициализации,
@@ -40,10 +36,12 @@ class CatalogServletTest extends HttpInit {
     @ParameterizedTest
     @ArgumentsSource(PhoneArgumentsProvider.class)
     void doGetTest(List<Phone> phones) throws ServletException, IOException {
-        when(phoneListDAO.findAll()).thenReturn(phones);
-
+        //given
+        when(daoProvider.findAll()).thenReturn(phones);
+        //when
         catalogServlet.doGet(request, response);
-        verify(phoneListDAO).findAll(); // Проверяем,что у мока вызвался метод.
+        //then
+        verify(daoProvider).findAll(); // Проверяем,что у мока вызвался метод.
         verify(request).setAttribute("phones", phones);
         verify(request).getRequestDispatcher("WEB-INF/catalog.jsp");
         verify(requestDispatcher).forward(request, response);
@@ -51,9 +49,12 @@ class CatalogServletTest extends HttpInit {
 
     @Test
     void doGetNoProductsReturned() throws ServletException, IOException {
-        when(phoneListDAO.findAll()).thenReturn(Collections.emptyList());
+        //given
+        when(daoProvider.findAll()).thenReturn(Collections.emptyList());
+        //when
         catalogServlet.doGet(request, response);
-        verify(phoneListDAO).findAll();
+        //then
+        verify(daoProvider).findAll();
         verify(request, times(0)).setAttribute(anyString(), anyList());
         verify(request).getRequestDispatcher("WEB-INF/catalog.jsp");
         verify(requestDispatcher).forward(request, response);
@@ -62,13 +63,16 @@ class CatalogServletTest extends HttpInit {
 
     @Test
     void doGetThrowException() throws ServletException, IOException {
-        when(phoneListDAO.findAll()).thenThrow(new IllegalArgumentException("some message"));
+        //given
+        when(daoProvider.findAll()).thenThrow(new IllegalArgumentException("some message"));
+        //when
         IllegalArgumentException illegalArgumentException =
                 assertThrows(IllegalArgumentException.class, () ->
                         catalogServlet.doGet(request, response));
+        //then
         assertNotNull(illegalArgumentException);
         assertEquals("some message", illegalArgumentException.getMessage());
-        verify(phoneListDAO).findAll();
+        verify(daoProvider).findAll();
         verifyNoInteractions(request);
         verifyNoInteractions(requestDispatcher);
     }

@@ -1,13 +1,13 @@
 package by.yurachel.web_app.controller;
 
-import by.yurachel.web_app.dao.AbstractDAO;
-import by.yurachel.web_app.dao.DAOProvider;
+import by.yurachel.web_app.dao.DaoProvider;
+import by.yurachel.web_app.dao.IDao;
 import by.yurachel.web_app.entity.Phone;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,12 +17,13 @@ import java.util.List;
 @WebServlet(name = "catalog", urlPatterns = "/catalog")
 public class CatalogServlet extends HttpServlet {
 
-    private DAOProvider phoneProvider = DAOProvider.getInstance();
+    private IDao<Phone> dao = DaoProvider.getInstance().getIPhoneDAO();
+
     private static final Logger LOGGER = LogManager.getLogger(CatalogServlet.class);
-    private AbstractDAO<Phone> phoneListDAO = phoneProvider.getAbstractDAO();
+
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        List<Phone> phones = phoneListDAO.findAll();
+        List<Phone> phones = dao.findAll();
         if (!phones.isEmpty()) {
             request.setAttribute("phones", phones);
         }

@@ -41,7 +41,7 @@
                             Action
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="change">Update Phone</a></li>
+
                             <li><a class="dropdown-item" href="addPhone">Add new phone</a></li>
                         </ul>
                     </li>
@@ -78,7 +78,6 @@
                     <label for="exampleInputPassword1" class="form-label">Image</label>
                     <input name="image" type="text" class="form-control" id="imageInput" placeholder="Image">
                 </div>
-                <input type="hidden" value="add_new_phone" name="command">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
