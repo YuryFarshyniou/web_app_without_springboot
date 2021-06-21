@@ -1,5 +1,6 @@
 package by.yurachel.web_app.dao.hibernate.impl;
 
+import by.yurachel.web_app.config.SpringConfig;
 import by.yurachel.web_app.dao.IDao;
 import by.yurachel.web_app.dao.hibernate.SessionFactoryContainer;
 import by.yurachel.web_app.entity.Phone;
@@ -8,13 +9,19 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+
+@Component
 public class HibPhoneDao implements IDao<Phone> {
     private static final Logger LOGGER = LogManager.getLogger(HibPhoneDao.class);
-    private static final SessionFactory sessionFactory =
-            SessionFactoryContainer.getSessionFactory();
+
+
+    private final SessionFactory sessionFactory = SessionFactoryContainer.getSessionFactory();
 
     @Override
     public List<Phone> findAll() {
@@ -46,7 +53,6 @@ public class HibPhoneDao implements IDao<Phone> {
     public boolean removeById(long id) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-
         Phone phone = session.get(Phone.class, id);
         if (phone == null) {
             return false;

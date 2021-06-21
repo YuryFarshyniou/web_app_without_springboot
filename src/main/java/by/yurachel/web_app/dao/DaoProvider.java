@@ -1,58 +1,33 @@
 package by.yurachel.web_app.dao;
 
-import by.yurachel.web_app.dao.hibernate.impl.HibPhoneDao;
-import by.yurachel.web_app.dao.jdbc.impl.JdbcPhoneDao;
-import by.yurachel.web_app.dao.jpa.impl.JpaPhoneDao;
 import by.yurachel.web_app.entity.Phone;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.util.Locale;
 
-
-public final class DaoProvider {
-
-    private static IDao<Phone> IPhoneDAO;
-    private static DaoType type;
+@Component
+public class DaoProvider {
     private static final Logger LOGGER = LogManager.getLogger(DaoProvider.class);
 
-    public static void init(String db) {
-        type = DaoType.valueOf(db.toUpperCase(Locale.ROOT));
 
-        switch (type) {
-            case JPA:
-                IPhoneDAO = new JpaPhoneDao();
-                LOGGER.info("JPA dao was initialized.");
-                break;
-            case JDBC:
-                IPhoneDAO = new JdbcPhoneDao();
-                LOGGER.info("JDBC dao was initialized.");
-                break;
-            case HIBERNATE:
-                IPhoneDAO = new HibPhoneDao();
-                LOGGER.info("Hibernate dao was initialized.");
-                break;
-            default:
-                LOGGER.info("Initialized was with error.");
-        }
-    }
+    private IDao<Phone> IPhoneDAO;
 
-    public static class DAOProviderHolder {
-
-        public static final DaoProvider INSTANCE = new DaoProvider();
-    }
-
-
-    private DaoProvider() {
-
-    }
-
-    public static DaoProvider getInstance() {
-        return DAOProviderHolder.INSTANCE;
+    @Autowired
+    public DaoProvider(IDao<Phone> IPhoneDAO) {
+        this.IPhoneDAO = IPhoneDAO;
     }
 
     public IDao<Phone> getIPhoneDAO() {
         return IPhoneDAO;
     }
 
+    public void setIPhoneDAO(IDao<Phone> IPhoneDAO) {
+        this.IPhoneDAO = IPhoneDAO;
+    }
+
+    public static Logger getLOGGER() {
+        return LOGGER;
+    }
 }

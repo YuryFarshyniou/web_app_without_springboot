@@ -6,8 +6,12 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.springframework.stereotype.Component;
+
+
 
 public class SessionFactoryContainer {
+
     private static final Logger LOGGER = LogManager.getLogger(SessionFactoryContainer.class);
     private SessionFactory sessionFactory;
 
@@ -32,4 +36,5 @@ public class SessionFactoryContainer {
     private static class SessionFactoryHolder {
         static SessionFactoryContainer instance = new SessionFactoryContainer();
     }
+
 }
