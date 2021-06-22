@@ -5,6 +5,10 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -18,9 +22,14 @@ public class Phone implements Serializable {
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private long id;
+    @NotEmpty(message = "Phone name should not be empty")
+    @Size(min = 2, max = 50, message = "Name should be between 2 and 50 characters")
     private String name;
+    @Min(value = 1, message = "Price should be greater than zero.")
     private double price;
+    @NotEmpty(message = "Processor should not be empty")
     private String processor;
+    @NotEmpty(message = "Img link should not be empty")
     private String img;
 
     private static final long serialVersionUID = 6295618226040646585L;

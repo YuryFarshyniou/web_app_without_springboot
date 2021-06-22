@@ -3,6 +3,8 @@ package by.yurachel.web_app.service.impl;
 import by.yurachel.web_app.dao.DaoProvider;
 import by.yurachel.web_app.entity.Phone;
 import by.yurachel.web_app.service.IService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +13,8 @@ import java.util.List;
 
 @Component
 public class PhoneService implements IService<Phone> {
+
+    private static final Logger LOGGER = LogManager.getLogger(PhoneService.class);
 
     private DaoProvider provider;
 
@@ -54,4 +58,6 @@ public class PhoneService implements IService<Phone> {
     public Phone findByName(String phoneName) {
         return provider.getIPhoneDAO().findByName(phoneName);
     }
+
+
 }

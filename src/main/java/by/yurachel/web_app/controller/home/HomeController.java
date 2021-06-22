@@ -1,6 +1,13 @@
 package by.yurachel.web_app.controller.home;
 
+import by.yurachel.web_app.dao.DaoProvider;
+import by.yurachel.web_app.entity.Phone;
+import by.yurachel.web_app.service.IService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -8,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/home")
 public class HomeController {
 
+    private static final Logger LOGGER = LogManager.getLogger(HomeController.class);
+
     @GetMapping()
-    public String list() {
+    public String home(Model model) {
         return "home/home";
     }
 }
