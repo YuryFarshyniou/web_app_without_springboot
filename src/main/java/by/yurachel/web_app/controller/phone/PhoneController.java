@@ -1,7 +1,6 @@
 package by.yurachel.web_app.controller.phone;
 
-import by.yurachel.web_app.dao.DaoProvider;
-import by.yurachel.web_app.entity.Phone;
+import by.yurachel.web_app.model.phone.impl.Phone;
 import by.yurachel.web_app.service.IService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -63,11 +62,11 @@ public class PhoneController {
     public String update(@PathVariable int id,
                          @ModelAttribute("person") @Valid Phone phone,
                          BindingResult bindingResult) {
-        if(bindingResult.hasErrors()){
-            return"phones/updatePhone";
+        if (bindingResult.hasErrors()) {
+            return "phones/updatePhone";
         }
         service.updateById(id, phone);
-        return"redirect:/phones";
+        return "redirect:/phones";
     }
 
     @DeleteMapping("/{id}")

@@ -1,6 +1,6 @@
 package by.yurachel.web_app.service;
 
-import by.yurachel.web_app.entity.Phone;
+import by.yurachel.web_app.model.phone.impl.Phone;
 
 import java.util.List;
 

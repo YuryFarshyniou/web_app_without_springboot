@@ -1,11 +1,11 @@
-package by.yurachel.web_app.entity;
+package by.yurachel.web_app.model.phone.impl;
 
+import by.yurachel.web_app.model.phone.IPhone;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -17,11 +17,12 @@ import java.util.Objects;
 @Table(name = "phones")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Phone implements Serializable {
+public class Phone implements IPhone,Serializable {
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private long id;
+
     @NotEmpty(message = "Phone name should not be empty")
     @Size(min = 2, max = 50, message = "Name should be between 2 and 50 characters")
     private String name;

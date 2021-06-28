@@ -1,18 +1,6 @@
 package by.yurachel.web_app.controller;
 
-import by.yurachel.web_app.HttpInit;
-import by.yurachel.web_app.dao.IDao;
-import by.yurachel.web_app.entity.Phone;
-import javax.servlet.ServletException;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-
-import java.io.IOException;
-
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
 
 //class ChangeServletTest extends HttpInit {
 //

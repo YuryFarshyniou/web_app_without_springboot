@@ -1,7 +1,7 @@
 package by.yurachel.web_app.service.impl;
 
 import by.yurachel.web_app.dao.DaoProvider;
-import by.yurachel.web_app.entity.Phone;
+import by.yurachel.web_app.model.phone.impl.Phone;
 import by.yurachel.web_app.service.IService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

@@ -1,5 +1,6 @@
 package by.yurachel.web_app.config;
 
+import org.springframework.security.access.SecurityConfig;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -9,7 +10,7 @@ import javax.servlet.ServletException;
 public class MySpringDispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return null;
+        return new Class[]{SpringSecurity.class};
     }
 
     @Override
