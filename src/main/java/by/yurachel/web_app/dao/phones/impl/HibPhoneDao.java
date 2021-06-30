@@ -1,19 +1,20 @@
-package by.yurachel.web_app.dao.hibernate.impl;
+package by.yurachel.web_app.dao.phones.impl;
 
 import by.yurachel.web_app.dao.IDao;
-import by.yurachel.web_app.dao.hibernate.SessionFactoryContainer;
+import by.yurachel.web_app.dao.SessionFactoryContainer;
+import by.yurachel.web_app.model.phone.IPhone;
 import by.yurachel.web_app.model.phone.impl.Phone;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 
-@Component
+@Repository
 public class HibPhoneDao implements IDao<Phone> {
     private static final Logger LOGGER = LogManager.getLogger(HibPhoneDao.class);
 
@@ -50,7 +51,7 @@ public class HibPhoneDao implements IDao<Phone> {
     public boolean removeById(long id) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Phone phone = session.get(Phone.class, id);
+        IPhone phone = session.get(Phone.class, id);
         if (phone == null) {
             return false;
         }

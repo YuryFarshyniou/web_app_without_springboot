@@ -1,4 +1,4 @@
-package by.yurachel.web_app.dao.hibernate.impl;
+package by.yurachel.web_app.dao.phones.impl;
 
 class HibPhoneDaoTest {
 //    private static final EntityManager entityManager =

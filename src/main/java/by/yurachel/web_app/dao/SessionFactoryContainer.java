@@ -1,4 +1,4 @@
-package by.yurachel.web_app.dao.hibernate;
+package by.yurachel.web_app.dao;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

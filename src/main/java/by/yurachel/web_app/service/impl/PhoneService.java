@@ -1,25 +1,25 @@
 package by.yurachel.web_app.service.impl;
 
-import by.yurachel.web_app.dao.DaoProvider;
+import by.yurachel.web_app.dao.phones.PhoneDaoProvider;
 import by.yurachel.web_app.model.phone.impl.Phone;
 import by.yurachel.web_app.service.IService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
-@Component
+@Service
 public class PhoneService implements IService<Phone> {
 
     private static final Logger LOGGER = LogManager.getLogger(PhoneService.class);
 
-    private DaoProvider provider;
+    private PhoneDaoProvider provider;
 
     @Autowired
-    public void setProvider(DaoProvider provider) {
+    public void setProvider(PhoneDaoProvider provider) {
         this.provider = provider;
     }
 

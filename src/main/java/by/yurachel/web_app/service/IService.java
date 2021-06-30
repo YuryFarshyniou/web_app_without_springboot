@@ -15,6 +15,6 @@ public interface IService<T> {
 
     boolean create(T object);
 
-    Phone findByName(String objectName);
+    T findByName(String objectName);
 
 }

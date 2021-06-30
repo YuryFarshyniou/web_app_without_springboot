@@ -1,4 +1,4 @@
-package by.yurachel.web_app.config;
+package by.yurachel.web_app.config.security;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
