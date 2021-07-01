@@ -6,74 +6,59 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 public class SecurityUser implements UserDetails {
-    private final String userName;
-    private final String password;
-    private final List<SimpleGrantedAuthority> authorities;
-    private final boolean isActive;
+    private User user;
 
-    public static UserDetails fromUser(User user){
-        return new org.springframework.security.core.userdetails.User(
-                user.getUserName(), user.getPassword(),
-                user.getStatus().equals(Status.ACTIVE),
-                user.getStatus().equals(Status.ACTIVE),
-                user.getStatus().equals(Status.ACTIVE),
-                user.getStatus().equals(Status.ACTIVE),
-                user.getRole().getAuthorities()
-        );
+    public SecurityUser(User user) {
+        this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.authorities;
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        this.user.getRole().getPermissions().forEach(p ->
+        {
+            GrantedAuthority authority = new SimpleGrantedAuthority(p.getPermission());
+            authorities.add(authority);
+        });
+        GrantedAuthority authority2 = new SimpleGrantedAuthority("ROLE_" + user.getRole().name());
+        authorities.add(authority2);
+        return authorities;
     }
+
     @Override
     public boolean isAccountNonExpired() {
-        return this.isActive;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return this.isActive;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return this.isActive;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return this.isActive;
-    }
-
-    public SecurityUser(String userName, String password, List<SimpleGrantedAuthority> authorities, boolean isActive) {
-        this.userName = userName;
-        this.password = password;
-        this.authorities = authorities;
-        this.isActive = isActive;
-    }
-
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public boolean isActive() {
-        return isActive;
+        return user.getStatus().equals(Status.ACTIVE);
     }
 
     @Override
     public String getPassword() {
-        return this.password;
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return this.userName;
+        return user.getUserName();
     }
 
 }

@@ -1,24 +1,20 @@
 package by.yurachel.web_app.config.security;
 
+import by.yurachel.web_app.model.user.Permission;
+import by.yurachel.web_app.model.user.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.stereotype.Controller;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
-@ComponentScan("by.yurachel.web_app.config.security")
-@Controller
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserDetailsService userDetailsService;
@@ -44,25 +40,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/home").permitAll()
-                .anyRequest().authenticated()
-//                .and()
-//                .httpBasic();
-//                .and()
-//                .formLogin()
-//                .loginPage("/login")
-//                .defaultSuccessUrl("/home")
-//                .failureUrl("/login?error=true")
-//                .permitAll()
-//
-//                .and()
-//                .logout()
-//                .logoutSuccessUrl("/login?logout=true")
-//                .invalidateHttpSession(true)
-//                .permitAll()
-//
+                .antMatchers("/phones/{\\d+}","/phones").hasAuthority(Permission.DEVELOPERS_READ.getPermission())
+                .antMatchers( "/phones/new"
+                        ,"/phones/{\\d+}/updatePhone").hasAuthority(Permission.DEVELOPERS_WRITE.getPermission())
+                .antMatchers("/users", "/users/new").hasRole(Role.ADMIN.name())
                 .and()
-                .httpBasic();
-
+                .formLogin()
+                .loginPage("/login").permitAll()
+                .defaultSuccessUrl("/home")
+                .and()
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login")
+                .and()
+                .rememberMe().userDetailsService(userDetailsService).tokenValiditySeconds(2592000);
     }
 
     @Bean
@@ -79,14 +69,3 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder(12);
     }
 }
-//    auth
-//            .inMemoryAuthentication()
-//            .withUser("admin")
-//            .password(passwordEncoder().encode("admin"))
-//            .roles("ADMIN")
-//            .authorities("ACCESS_PHONES")
-//            .and()
-//            .withUser("user")
-//            .password(passwordEncoder().encode("user"))
-//            .roles("USER");
-//            }

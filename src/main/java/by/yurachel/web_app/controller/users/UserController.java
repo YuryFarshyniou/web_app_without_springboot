@@ -1,4 +1,4 @@
-package by.yurachel.web_app.controller;
+package by.yurachel.web_app.controller.users;
 
 import by.yurachel.web_app.controller.home.HomeController;
 
