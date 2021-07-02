@@ -51,7 +51,7 @@ public class HibPhoneDao implements IDao<Phone> {
     public boolean removeById(long id) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        IPhone phone = session.get(Phone.class, id);
+        Phone phone = session.get(Phone.class, id);
         if (phone == null) {
             return false;
         }

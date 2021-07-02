@@ -1,6 +1,9 @@
-<html xmlns:th="http://www.thymeleaf.org/" lang="en">
+<html xmlns:th="http://www.thymeleaf.org/" lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head th:insert="header.html :: headerfiles"></head>
 <body>
+
 <header th:insert="header.html :: nav"></header>
 <section>
     <div class="container-xxl">
@@ -44,7 +47,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Xiaomi Mi 11 Ultra</h5>
                                     <p class="card-text">Snapdragon 888, 5000mAh</p>
-                                    <form th:action="@{/phones/{id}(id=6)}" th:method="get" name="moreInfo">
+                                    <form th:action="@{/phones/{id}(id=23)}" th:method="get" name="moreInfo">
                                         <input class="btn btn-primary" type="submit" name="remove" value="More Info"/>
                                     </form>
                                 </div>
@@ -57,7 +60,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Samsung Galaxy s20 Ultra</h5>
                                     <p class="card-text">Exynos 990, RAM 12 gb</p>
-                                    <form th:action="@{/phones/{id}(id=13)}" th:method="get" name="moreInfo">
+                                    <form th:action="@{/phones/{id}(id=24)}" th:method="get" name="moreInfo">
                                         <input class="btn btn-primary" type="submit" name="more info"
                                                value="More Info"/>
                                     </form>
@@ -71,7 +74,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Xiaomi Mi 11 lite</h5>
                                     <p class="card-text">Snapdragon 732G, RAM 6Gb</p>
-                                    <form th:action="@{/phones/{id}(id=14)}" th:method="get" name="moreInfo">
+                                    <form th:action="@{/phones/{id}(id=25)}" th:method="get" name="moreInfo">
                                         <input class="btn btn-primary" type="submit" name="more info"
                                                value="More Info"/>
                                     </form>
@@ -103,7 +106,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Iphone 12 Pro Max</h5>
                                     <p class="card-text">Apple A14 Bionic.</p>
-                                    <form th:action="@{/phones/{id}(id=23)}" th:method="get" name="moreInfo">
+                                    <form th:action="@{/phones/{id}(id=27)}" th:method="get" name="moreInfo">
                                         <input class="btn btn-primary" type="submit" name="more info"
                                                value="More Info"/>
                                     </form>
@@ -117,7 +120,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Poco X3 Pro</h5>
                                     <p class="card-text">Snapdragon 860.</p>
-                                    <form th:action="@{/phones/{id}(id=21)}" th:method="get" name="moreInfo">
+                                    <form th:action="@{/phones/{id}(id=26)}" th:method="get" name="moreInfo">
                                         <input class="btn btn-primary" type="submit" name="more info"
                                                value="More Info"/>
                                     </form>
@@ -158,5 +161,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
+<footer th:insert="footer.html :: footer"></footer>
 </body>
 </html>
