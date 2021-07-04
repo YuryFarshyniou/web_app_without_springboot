@@ -58,9 +58,9 @@ public class PhoneController {
         return "phones/updatePhone";
     }
 
-    @PatchMapping("/{id}")
+    @PostMapping("/{id}")
     public String update(@PathVariable int id,
-                         @ModelAttribute("person") @Valid Phone phone,
+                         @ModelAttribute("phone") @Valid Phone phone,
                          BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "phones/updatePhone";
