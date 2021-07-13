@@ -1,6 +1,6 @@
 package by.yurachel.web_app;
 
-import by.yurachel.web_app.entity.Phone;
+import by.yurachel.web_app.model.phone.impl.Phone;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;

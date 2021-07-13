@@ -1,10 +1,10 @@
-package by.yurachel.web_app.dao;
+package by.yurachel.web_app.service;
 
 import by.yurachel.web_app.model.phone.impl.Phone;
 
 import java.util.List;
 
-public interface IDao<T> {
+public interface IService<T> {
     List<T> findAll();
 
     T findById(long id);

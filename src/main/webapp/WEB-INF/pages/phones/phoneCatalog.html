@@ -1,0 +1,56 @@
+<html xmlns:th="http://www.thymeleaf.org/" lang="en">
+<head th:insert="header.html :: phoneCatalogHeader"></head>
+<body>
+<header th:insert="header.html :: nav"></header>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-8">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th></th>
+                    <th>Price</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <div th:each="phone : ${phones}">
+                    <tr>
+                        <td th:class="name_column" th:text="${phone.getName()}">name</td>
+                        <td th:class="image"><img th:src="@{${phone.getImg()}}" th:width="400"
+                                                  th:height="300" th:alt="Image"/></td>
+                        <td th:class="price_column" th:text="${phone.getPrice()}">price</td>
+                        <td>
+                            <form th:action="@{/phones/{id}(id=${phone.getId()})}" th:method="DELETE" th:name="removePhone">
+                                <input class="btn btn-dark" type="submit" name="remove" value="Remove"/>
+                            </form>
+                        </td>
+                        <td>
+                            <form th:action="@{/phones/{id}(id=${phone.getId()})}" th:method="GET" th:name="moreInfo">
+                                <input class="btn btn-dark" type="submit" name="info" value="More info"/>
+                            </form>
+                        </td>
+
+                        <td>
+                            <form th:action="@{/phones/{id}/updatePhone(id=${phone.getId()})}" th:method="GET" th:name="update">
+                                <input class="btn btn-dark" type="submit" name="info" value="Update"/>
+                            </form>
+                        </td>
+                    </tr>
+                </div>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+            crossorigin="anonymous"></script>
+
+</div>
+<footer th:insert="footer.html :: footer"></footer>
+</body>
+</html>
